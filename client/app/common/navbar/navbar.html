@@ -1,23 +1,17 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" ng-init="navCollapsed = true">
-    <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" ng-click='navCollapsed=!navCollapsed'>
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed=true" ng-click='navCollapsed=!navCollapsed'>
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href='#'>Dive Karlskrona</a>
-        </div>
-        <tabs data="vm.tabData" type="pills" id="navbar" class="navbar-collapse collapse" template-url="app/common/navbar/navtab.html" />
-        <div class='navbar-collapse' uib-collapse="!navCollapsed">
-            <ul class="tab-container">
-                <li ng-repeat="tab in tabs" ng-click="go(tab)">
-                    <!-- <uib-tab-heading> -->
-                        <i class="{{tab.params.icon}}"></i> {{tab.heading}}
-                    <!-- </uib-tab-heading> -->
-                </li>
+        </div>      
+        <div class='navbar-collapse collapse' ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+            <ul class="nav navbar-nav">
+                <tabs data="vm.tabData" type="pills" class='navbar-collapse collapse' template-url="app/common/navbar/navtab.html" />
+                <li ng-show="!navCollapsed">Test</li>
             </ul>
         </div>
-    </div>
 </nav>
