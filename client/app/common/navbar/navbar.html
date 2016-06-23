@@ -1,8 +1,23 @@
-<nav class="navbar">
-  <div class="logo">
-    <h1><a ui-sref="home">{{ vm.name }}</a></h1>
-  </div>
-  <div class="nav-links">
-    <span><a ui-sref="about">about</a></span>
-  </div>
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-init="navCollapsed = true">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" ng-click='navCollapsed=!navCollapsed'>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href='#'>Dive Karlskrona</a>
+        </div>
+        <tabs data="vm.tabData" type="pills" id="navbar" class="navbar-collapse collapse" template-url="app/common/navbar/navtab.html" />
+        <div class='navbar-collapse' uib-collapse="!navCollapsed">
+            <ul class="tab-container">
+                <li ng-repeat="tab in tabs" ng-click="go(tab)">
+                    <!-- <uib-tab-heading> -->
+                        <i class="{{tab.params.icon}}"></i> {{tab.heading}}
+                    <!-- </uib-tab-heading> -->
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>

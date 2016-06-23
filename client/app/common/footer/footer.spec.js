@@ -1,16 +1,16 @@
-import NavbarModule from './navbar'
-import NavbarController from './navbar.controller';
-import NavbarComponent from './navbar.component';
-import NavbarTemplate from './navbar.html';
+import FooterModule from './footer'
+import FooterController from './footer.controller';
+import FooterComponent from './footer.component';
+import FooterTemplate from './footer.html';
 
-describe('Navbar', () => {
+describe('Footer', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(NavbarModule.name));
+  beforeEach(window.module(FooterModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new NavbarController();
+      return new FooterController();
     };
   }));
 
@@ -29,17 +29,17 @@ describe('Navbar', () => {
   describe('Template', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
-    // it('has name in template [REMOVE]', () => {
-    //   expect(NavbarTemplate).to.contain(/{{\s?Dive Karlskrona\s?}}/g);
-    // });
+    it('has name in template [REMOVE]', () => {
+      expect(FooterTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+    });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = NavbarComponent;
+      let component = FooterComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(NavbarTemplate);
+        expect(component.template).to.equal(FooterTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('Navbar', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(NavbarController);
+        expect(component.controller).to.equal(FooterController);
       });
   });
 });

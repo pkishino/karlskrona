@@ -1,16 +1,27 @@
 @import '../common'
+$icon-font-path = "~bootstrap/fonts/"
+@import bootstrap
 
-.navbar
-  height 6.5rem
-  background-color $primaryColor
-  padding 1rem
-  .nav-links
-  .logo
-    display inline-block
-  .logo
-    color $lightTextColor
-    margin-right 50% 
-  .nav-links
-    span
-      color $lightTextColor
-      font-size 1.6rem
+.nav, .pagination, .carousel, .panel-title a
+  cursor pointer
+
+.nav-tabs
+  border-bottom 0
+
+.nav-pills
+  & > li
+    & > a
+      border-radius 0
+      padding-top 15px
+      padding-bottom 15px
+      text-shadow 0px -1px 0px rgba(0, 0, 0, 0.25)
+      color #9D9D9D
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover
+  color #FFF
+  background-color #080808
+
+.nav > li > a:focus, .nav > li > a:hover
+  color #FFF
+  text-decoration none
+  background-color transparent
