@@ -1,17 +1,17 @@
 var angular = require('angular');
 require('angular-mocks');
-var title = require('./title');
+var home = require('./home');
 
-describe('title component', function () {
+describe('home component', function () {
   beforeEach(function () {
     angular
-      .module('appTitle', ['app/navigation/title.html'])
-      .component('appTitle', title);
-    angular.mock.module('appTitle');
+      .module('home', ['app/views/home.html'])
+      .component('home', home);
+    angular.mock.module('home');
   });
 
   it('should render Welcome to Karlskrona diving', angular.mock.inject(function ($rootScope, $compile) {
-    var element = $compile('<app-title></app-title>')($rootScope);
+    var element = $compile('<home></home>')($rootScope);
     $rootScope.$digest();
     var title = element.find('h1');
     expect(title.html().trim()).toEqual('Welcome to Karlskrona diving');

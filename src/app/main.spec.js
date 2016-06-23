@@ -10,12 +10,10 @@ describe('main component', function () {
     angular.mock.module('app');
   });
 
-  it('should render the header, title, options and footer', angular.mock.inject(function ($rootScope, $compile) {
+  it('should render the header and footer', angular.mock.inject(function ($rootScope, $compile) {
     var element = $compile('<app>Loading...</app>')($rootScope);
     $rootScope.$digest();
     expect(element.find('app-header').length).toEqual(1);
-    expect(element.find('app-title').length).toEqual(1);
-    expect(element.find('app-options').length).toEqual(1);
     expect(element.find('app-footer').length).toEqual(1);
   }));
 });

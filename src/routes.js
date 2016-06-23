@@ -6,7 +6,7 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-        .state('app', {
+        .state('home', {
             url: '/',
             template: '<app></app>'
         })

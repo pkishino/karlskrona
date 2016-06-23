@@ -8,7 +8,7 @@ function NavCtrl() {
   var vm = this;
   vm.tabData = [{
     heading: 'Home',
-    route: 'app',
+    route: 'home',
     params: {
       icon: 'glyphicon glyphicon-home'
     }
