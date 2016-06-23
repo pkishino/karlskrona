@@ -1,6 +1,7 @@
-.tmp/
-coverage/
+.DS_Store
+.tmp
+.git
+node_modules
+.settings
+*.log
 dist/
-node_modules/
-jspm_packages/
-bower_components/
