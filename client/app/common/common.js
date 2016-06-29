@@ -4,10 +4,7 @@ import Hero from './hero/hero';
 import User from './user/user';
 import Footer from './footer/footer';
 
-let commonModule = angular.module('app.common', ['navbar',
-  Hero.name,
-  User.name,
-  Footer.name
+let commonModule = angular.module('app.common', ['navbar','hero', 'user', 'footer'
 ]);
 
 export default commonModule;

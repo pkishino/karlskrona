@@ -11,7 +11,9 @@ module.exports = {
        { test: /\.html$/, loader: 'raw' },
        { test: /\.styl$/, loader: 'style!css!stylus?paths=node_modules/bootstrap-styl' },
        { test: /\.css$/, loader: 'style!css' },
-       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader' }
+       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader' },
+       { test: /\.json$/, loader: 'json'}
+
     ]
   },
   plugins: [
