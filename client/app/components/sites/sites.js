@@ -5,6 +5,17 @@ import sitesComponent from './sites.component';
 let sitesModule = angular.module('sites', [
   uiRouter
 ])
+.config(($stateProvider, $urlRouterProvider) => {
+  "ngInject";
+
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider
+    .state('sites', {
+      url: '/sites',
+      template: '<sites></sites>'
+    });
+})
 
 .component('sites', sitesComponent);
 
