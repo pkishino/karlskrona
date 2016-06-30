@@ -5,7 +5,7 @@
 <!-- </header> -->
 <main class='main'>
     <div class='site' ng-repeat="site in vm.sites">
-        <img class="site-logo" ng-src="{{ site.logo }}" />
+        <img class="site-logo" ng-src="{{ site.logo }}" ng-click="vm.open()"/>
         <h3 class="site-h3"> {{ site.title }}
   		</h3>
         <p>{{ site.text1 }}</p>
