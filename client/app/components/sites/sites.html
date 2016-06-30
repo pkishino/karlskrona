@@ -1,14 +1,13 @@
-<header>
+<!-- <header> -->
     <div>
         Sites header here
     </div>
-</header>
-<main>
+<!-- </header> -->
+<main class='main'>
     <div class='site' ng-repeat="site in vm.sites">
         <img class="site-logo" ng-src="{{ site.logo }}" />
-        <h3 class="site-h3">
-    {{ site.title }}
-  </h3>
+        <h3 class="site-h3"> {{ site.title }}
+  		</h3>
         <p>{{ site.text1 }}</p>
         <p>{{ site.text2 }}</p>
     </div>
