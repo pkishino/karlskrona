@@ -1,14 +1,13 @@
-import template from './siteModalContent.html';
-import controller from './site.controller';
-import './sites.styl';
+import template from './site.html';
 
 let siteComponent = {
-  restrict: 'E',
-  bindings: {
-  	site: '<'
-  },
-  template,
-  controller
+    restrict: 'E',
+    bindings: {
+        site: '<',
+        close: '&',
+        dismiss: '&'
+    },
+    template
 };
 
 export default siteComponent;

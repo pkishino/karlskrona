@@ -1,16 +1,18 @@
 class SiteModalCtrl {
-    constructor(site, $uibModalInstance) {
-        console.log('modal ctrl');
+    constructor($uibModalInstance, site) {
+        console.log(this);
         this.site = site;
+        this.close = $uibModalInstance.close;
+        this.dismiss = $uibModalInstance.dismiss;
         this.$uibModalInstance = $uibModalInstance;
     }
-    ok(){
-    	console.log('modal ok');
-    	this.$uibModalInstance.close();
+    ok() {
+        console.log('modal ok');
+        this.$uibModalInstance.close();
     }
-    cancel(){
+    cancel() {
         console.log('modal cancel');
-    	this.$uibModalInstance.dismiss('cancel');
+        this.$uibModalInstance.dismiss('cancel');
     }
 }
 SiteModalCtrl.$inject = ['$uibModalInstance'];

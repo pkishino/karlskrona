@@ -1,6 +1,5 @@
 import sites from './sites.json';
-import site from './siteModalContent.html';
-// import siteCtrl from './site.component';
+import siteComp from './site.component';
 
 class SitesController {
     constructor($uibModal) {
@@ -8,21 +7,18 @@ class SitesController {
         this.sites = sites;
         this.$uibModal = $uibModal;
     }
-    open(size, site) {
+    open(index) {
+        var _this = this;
         var modalinstance = this.$uibModal.open({
-            template: site,
-            controller:['$uibModalInstance', function (site,$uibModalInstance) {
-                 this.site=site;
-                 this.close=$uibModalInstance.close;
-                 this.dismiss=$uibModalInstance.dismiss; 
-            }],
-            size:size
+            template: '<site site="$ctrl.site"></site>',
+            controller: function () {
+                 this.site = _this.sites[index]; 
+            }
         });
-        modalinstance.result.then(function () { 
-        }, function () {
-             console.log('Dismissed modal'); 
+        modalinstance.result.then(function() {}, function() {
+            console.log('Dismissed modal');
         });
     }
 }
-SitesController.$inject = ['$uibModal','$uibModalInstance'];
+SitesController.$inject = ['$uibModal'];
 export default SitesController;

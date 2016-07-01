@@ -3,14 +3,11 @@ import controller from './sites.controller';
 import './sites.styl';
 
 let sitesComponent = {
-  restrict: 'E',
-  bindings: {
-  	site: '<',
-  	close: '&',
-  	dismiss: '&'
-  },
-  template,
-  controller
+    restrict: 'E',
+    bindings: {
+    },
+    template,
+    controller
 };
 
 export default sitesComponent;
