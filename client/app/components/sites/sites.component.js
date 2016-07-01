@@ -4,10 +4,13 @@ import './sites.styl';
 
 let sitesComponent = {
   restrict: 'E',
-  bindings: {},
+  bindings: {
+  	site: '<',
+  	close: '&',
+  	dismiss: '&'
+  },
   template,
-  controller,
-  controllerAs: 'vm'
+  controller
 };
 
 export default sitesComponent;

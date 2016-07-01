@@ -1,12 +1,15 @@
 class SiteModalCtrl {
-    constructor($uibModalInstance) {
+    constructor(site, $uibModalInstance) {
+        console.log('modal ctrl');
+        this.site = site;
         this.$uibModalInstance = $uibModalInstance;
     }
     ok(){
     	console.log('modal ok');
     	this.$uibModalInstance.close();
     }
-    cance(){
+    cancel(){
+        console.log('modal cancel');
     	this.$uibModalInstance.dismiss('cancel');
     }
 }

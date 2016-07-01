@@ -30,7 +30,7 @@ describe('Site', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(SiteTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(SiteTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
     });
   });
 
@@ -40,10 +40,6 @@ describe('Site', () => {
 
       it('includes the intended template',() => {
         expect(component.template).to.equal(SiteTemplate);
-      });
-
-      it('uses `controllerAs` syntax', () => {
-        expect(component).to.have.property('controllerAs');
       });
 
       it('invokes the right controller', () => {

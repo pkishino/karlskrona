@@ -6,8 +6,7 @@ let footerComponent = {
   restrict: 'E',
   bindings: {},
   template,
-  controller,
-  controllerAs: 'vm'
+  controller
 };
 
 export default footerComponent;

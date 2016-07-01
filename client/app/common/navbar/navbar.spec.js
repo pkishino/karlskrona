@@ -42,10 +42,6 @@ describe('Navbar', () => {
         expect(component.template).to.equal(NavbarTemplate);
       });
 
-      it('uses `controllerAs` syntax', () => {
-        expect(component).to.have.property('controllerAs');
-      });
-
       it('invokes the right controller', () => {
         expect(component.controller).to.equal(NavbarController);
       });

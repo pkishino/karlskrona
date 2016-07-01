@@ -6,8 +6,7 @@ let siteComponent = {
   restrict: 'E',
   bindings: {},
   template,
-  controller,
-  controllerAs: 'vm'
+  controller
 };
 
 export default siteComponent;

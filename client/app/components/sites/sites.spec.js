@@ -26,10 +26,6 @@ describe('Sites', () => {
         expect(component.template).to.equal(SitesTemplate);
       });
 
-      it('uses `controllerAs` syntax', () => {
-        expect(component).to.have.property('controllerAs');
-      });
-
       it('invokes the right controller', () => {
         expect(component.controller).to.equal(SitesController);
       });

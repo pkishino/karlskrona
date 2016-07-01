@@ -42,10 +42,6 @@ describe('Footer', () => {
         expect(component.template).to.equal(FooterTemplate);
       });
 
-      it('uses `controllerAs` syntax', () => {
-        expect(component).to.have.property('controllerAs');
-      });
-
       it('invokes the right controller', () => {
         expect(component.controller).to.equal(FooterController);
       });

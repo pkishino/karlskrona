@@ -30,7 +30,7 @@ describe('Map', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(MapTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(MapTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
     });
   });
 
@@ -40,10 +40,6 @@ describe('Map', () => {
 
       it('includes the intended template',() => {
         expect(component.template).to.equal(MapTemplate);
-      });
-
-      it('uses `controllerAs` syntax', () => {
-        expect(component).to.have.property('controllerAs');
       });
 
       it('invokes the right controller', () => {

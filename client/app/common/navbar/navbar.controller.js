@@ -1,8 +1,7 @@
 class NavbarController {
     constructor() {
         this.name = 'navbar';
-        var vm = this;
-        vm.tabData = [{
+        this.tabData = [{
             heading: 'Home',
             route: 'home',
             params: {

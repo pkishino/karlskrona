@@ -6,8 +6,7 @@ let emergencyComponent = {
   restrict: 'E',
   bindings: {},
   template,
-  controller,
-  controllerAs: 'vm'
+  controller
 };
 
 export default emergencyComponent;

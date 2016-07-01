@@ -5,7 +5,6 @@ import mapComponent from './map.component';
 let mapModule = angular.module('map', [
   uiRouter
 ])
-
 .config(($stateProvider, $urlRouterProvider) => {
   "ngInject";
 
