@@ -7,12 +7,15 @@ class SitesController {
         this.sites = sites;
         this.$uibModal = $uibModal;
     }
-    open(index) {
-        var _this = this;
+    open(site) {
+        var currSite = site;
         var modalinstance = this.$uibModal.open({
-            template: '<site site="$ctrl.site"></site>',
-            controller: function () {
-                 this.site = _this.sites[index]; 
+            template: '<site site="site">{{site}}</site>',
+            controller: siteComp.controller,
+            resolve: {
+                site: function() {
+                    return currSite;
+                }
             }
         });
         modalinstance.result.then(function() {}, function() {

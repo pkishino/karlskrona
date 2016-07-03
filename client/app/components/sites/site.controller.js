@@ -2,6 +2,7 @@ class SiteModalCtrl {
     constructor($uibModalInstance, site) {
         console.log(this);
         this.site = site;
+        console.log(site);
         this.close = $uibModalInstance.close;
         this.dismiss = $uibModalInstance.dismiss;
         this.$uibModalInstance = $uibModalInstance;
