@@ -1,5 +1,5 @@
 import sites from './sites.json';
-import siteComp from './site.component';
+// import siteComp from './site.component';
 
 class SitesController {
     constructor($uibModal) {
@@ -8,15 +8,15 @@ class SitesController {
         this.$uibModal = $uibModal;
     }
     open(site) {
-        var currSite = site;
         var modalinstance = this.$uibModal.open({
-            template: '<site site="site">{{site}}</site>',
-            controller: siteComp.controller,
-            resolve: {
-                site: function() {
-                    return currSite;
-                }
-            }
+            template: '<site site="$ctrl.site" close="$ctrl.close()" dismiss="$ctrl.dismiss()"></site>',
+            controllerAs:'$ctrl',
+            controller: ['$uibModalInstance',
+            function ($uibModalInstance) {
+                this.site = site;
+                this.close = $uibModalInstance.close;
+                this.dismiss = $uibModalInstance.dismiss;
+            }]
         });
         modalinstance.result.then(function() {}, function() {
             console.log('Dismissed modal');

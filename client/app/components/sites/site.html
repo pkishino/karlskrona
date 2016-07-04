@@ -1,9 +1,13 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{ site.title }}</h3>
+    <h3 class="modal-title">{{$ctrl.site.title}}</h3>
 </div>
 <div class="modal-body">
+    {{$ctrl.site.text1}}
+    <p>
+    {{$ctrl.site.text2}}
+    <img ng-if='$ctrl.site.logo !== ""' class="site-logo" ng-src="{{ $ctrl.site.logo }}"/>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="$ctrl.dismiss()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.dismiss()">close</button>
 </div>
