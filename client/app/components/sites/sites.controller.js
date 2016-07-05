@@ -1,5 +1,4 @@
 import sites from './sites.json';
-// import siteComp from './site.component';
 
 class SitesController {
     constructor($uibModal) {
