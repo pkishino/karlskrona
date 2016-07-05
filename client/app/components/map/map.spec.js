@@ -6,7 +6,7 @@ import MapTemplate from './map.html';
 describe('Map', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(MapModule.name));
+  beforeEach(window.module(MapModule));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {

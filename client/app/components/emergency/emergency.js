@@ -17,6 +17,7 @@ let emergencyModule = angular.module('emergency', [
     });
 })
 
-.component('emergency', emergencyComponent);
+.component('emergency', emergencyComponent)
+.name;
 
 export default emergencyModule;

@@ -21,6 +21,7 @@ let sitesModule = angular.module('sites', [
 })
 
 .component('site', siteComponent)
-.component('sites', sitesComponent);
+.component('sites', sitesComponent)
+.name;
 
 export default sitesModule;

@@ -6,6 +6,7 @@ let footerModule = angular.module('footer', [
   uiRouter
 ])
 
-.component('footer', footerComponent);
+.component('footer', footerComponent)
+.name;
 
 export default footerModule;

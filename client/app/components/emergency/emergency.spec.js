@@ -6,7 +6,7 @@ import EmergencyTemplate from './emergency.html';
 describe('Emergency', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(EmergencyModule.name));
+  beforeEach(window.module(EmergencyModule));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {

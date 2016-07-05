@@ -6,7 +6,7 @@ import FooterTemplate from './footer.html';
 describe('Footer', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(FooterModule.name));
+  beforeEach(window.module(FooterModule));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {

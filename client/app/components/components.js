@@ -6,11 +6,12 @@ import Emergency from './emergency/emergency';
 import Sites from './sites/sites';
 
 let componentModule = angular.module('app.components', [
-  Home.name,
-  About.name,
-  Map.name,
-  Sites.name,
-  Emergency.name
-]);
+  Home,
+  About,
+  Map,
+  Sites,
+  Emergency
+])
+.name;
 
 export default componentModule;

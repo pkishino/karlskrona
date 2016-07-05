@@ -6,7 +6,7 @@ import SitesTemplate from './sites.html';
 describe('Sites', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(SitesModule.name));
+  beforeEach(window.module(SitesModule));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {

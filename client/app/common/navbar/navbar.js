@@ -13,6 +13,7 @@ let navbarModule = angular.module('navbar', [
     uiBootstrap
 ])
 
-.component('navbar', navbarComponent);
+.component('navbar', navbarComponent)
+.name;
 
 export default navbarModule;

@@ -17,6 +17,7 @@ let mapModule = angular.module('map', [
     });
 })
 
-.component('map', mapComponent);
+.component('map', mapComponent)
+.name;
 
 export default mapModule;
