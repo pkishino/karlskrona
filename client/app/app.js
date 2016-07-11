@@ -6,13 +6,21 @@ import AppComponent from './app.component';
 import 'normalize.css';
 
 angular.module('app', [
-    uiRouter,
-    Common,
-    Components
-  ])
-  .config(($locationProvider) => {
-    "ngInject";
-    $locationProvider.html5Mode(true).hashPrefix('!');
-  })
+        uiRouter,
+        Common,
+        Components
+    ])
+    .config(($locationProvider) => {
+        "ngInject";
+        $locationProvider.html5Mode(true).hashPrefix('!');
+    })
 
-  .component('app', AppComponent);
+.component('app', AppComponent);
+
+var config = {
+    apiKey: "AIzaSyBbS0TVtTSSBiIup-LahxxY773efpz6qFA",
+    authDomain: "dive-karlskrona.firebaseapp.com",
+    databaseURL: "https://dive-karlskrona.firebaseio.com",
+    storageBucket: "dive-karlskrona.appspot.com",
+};
+firebase.initializeApp(config);

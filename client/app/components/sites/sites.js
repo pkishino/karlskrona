@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import lightbox from 'angular-bootstrap-lightbox';
+import angularfire from 'angularfire';
 
 import sitesComponent from './sites.component';
 import siteComponent from './site.component';
@@ -9,7 +10,8 @@ import siteComponent from './site.component';
 let sitesModule = angular.module('sites', [
   uiRouter,
   uiBootstrap,
-  lightbox
+  lightbox,
+  angularfire
 ])
 .config(($stateProvider, $urlRouterProvider) => {
   "ngInject";

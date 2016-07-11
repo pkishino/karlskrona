@@ -1,10 +1,51 @@
-import sites from './assets/sites.json';
+function fetchUrl(url) {
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    storageRef.child(url).getDownloadURL().then(function(urlLong) {
+        return urlLong;
+    }).catch(function(error) {
+        console.log(error);
+        switch (error.code) {
+            case 'storage/object_not_found':
+                // File doesn't exist
+                break;
+
+            case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+
+            case 'storage/canceled':
+                // User canceled the upload
+                break;
+
+            case 'storage/unknown':
+                // Unknown error occurred, inspect the server response
+                break;
+        }
+    });
+}
 
 class SitesController {
-    constructor($uibModal) {
+    constructor($scope, $uibModal, $firebaseArray) {
+        this.sites = [];
+        $scope.sites = $firebaseArray(firebase.database().ref().child('sites'));
+        $scope.sites.forEach(function(site) {
+            var url = '';
+            if (!site.logo) {
+                url = 'assets/flagga.png';
+            } else if (site.logo.indexOf('http') == -1) {
+                url = 'assets/' + site.logo;
+            }
+            if (url) {
+                site.logoUrl = fetchUrl(url);
+            } else {
+                site.logoUrl = site.logo;
+            }
+        });
+
         this.name = 'sites';
-        this.sites = sites;
         this.$uibModal = $uibModal;
+
     }
     open(site) {
         var modalinstance = this.$uibModal.open({
@@ -12,9 +53,10 @@ class SitesController {
             controllerAs: '$ctrl',
             controller: ['$uibModalInstance', 'Lightbox',
                 function($uibModalInstance, Lightbox) {
+
                     this.site = site;
                     if (site.map) {
-                        this.sitemap = require('./assets/' + site.map);
+                        this.sitemap = fetchUrl('divemaps/' + site.map);
                     }
                     this.close = $uibModalInstance.close;
                     this.dismiss = $uibModalInstance.dismiss;
@@ -32,16 +74,6 @@ class SitesController {
             console.log('Dismissed modal');
         });
     }
-    fetchlogo(site) {
-        if (!site.logo){
-            return require ('./assets/flagga.png');
-        }
-        if (site.logo.indexOf('http') == -1) {
-            return require('./assets/' + site.logo);
-        } else {
-            return site.logo;
-        }
-    }
 }
-SitesController.$inject = ['$uibModal'];
+SitesController.$inject = ['$scope', '$uibModal', '$firebaseArray'];
 export default SitesController;
