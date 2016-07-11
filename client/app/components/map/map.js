@@ -16,7 +16,6 @@ let mapModule = angular.module('map', [
       template: '<map></map>'
     });
 })
-
 .component('map', mapComponent)
 .name;
 

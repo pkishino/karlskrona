@@ -1,0 +1,49 @@
+[
+  {
+    "key": "Pråmen",
+    "title": "Pråmen",
+    "text1": "Maxdjupet ligger på 10 meter. Dykdjup ca 7-9m",
+    "text2": "blah blah"
+  },
+  {
+    "key": "Klykach",
+    "title": "Klykach",
+    "text1": "Maxdjupet ligger på 11 meter. Dykdjup ca 3-7m",
+    "text2": "Vraket ligger på djup från ca 3 – 12 meter men huvuddelen ligger grunt men en del av trålen och delar av vraket lite djupare ca 10-12. Väldigt lättdykt vrak, det finns mycket att se från den lettiska trålaren som förliste vintern 1991/1992. Motor, drivaxel m. propeller m.m ligger utspritt på ett rätt så begränsat område. Vid klar sikt så kan man köra över vrakplatsen och lokalisera en stor del av vraket innan man går i. GREAT DIVE !! Runt vrakområdet ligger det en fin sandbotten som lämpar sig bl a för kursdyk på lämpligt djup.",
+    "map": "klykach.jpg"
+  },
+  {
+    "key": "Ekenabben",
+    "title": "Ekenabben",
+    "text1": "Maxdjupet ligger på 14 meter. Dykdjup ca 7-10m",
+    "text2": "Området med Vrak består av ca 15-tal skepp från tiden 1550-1650 som är medvetet sänkta som en spärr in mot Karlskrona, slutet 1600-tal. Som en del av försvaret so inte ”ryssen” kom in bakvägen till Karlskrona. Tiden har satt sina spår och gjort att vraket är sammanfallna och det är svårt att skilja vrak från vrak, men en närmare titt och en del kunskap om vraken gör att man får en bra bild hur stora flera av vraken en gång varit. Mycket valben och plankor från vrak men kan klart se att det varit skepp en gång i tiden. Väldigt trevlig dykplats om man är intresserad av gamla trävrak och lite lokal historia Inte alltid som man dyker på vrak från 1600-talet. Bottenförhållanden; sand och sten från piren ut en bit till djupkurvan börjar, på vraken ligger rätt mycket sediment som kan göra sikten dålig.",
+    "map": "ekenabben.jpg"
+  },
+  {
+    "key": "Kamms",
+    "title": "Kamms",
+    "text1": "text here",
+    "text2": "More text here",
+    "map": "kamms.jpg"
+  },
+  {
+    "key": "Salto",
+    "title": "Salto",
+    "text1": "Text here",
+    "text2": "More text here",
+    "map": "salto.jpg"
+  },
+  {
+    "key": "Jarnavik",
+    "title": "Jarnavik",
+    "text1": "Text here",
+    "text2": "More text here",
+    "map": "jarnavik.jpg"
+  },
+  {
+    "key": "More",
+    "title": "More",
+    "text1": "Text here",
+    "text2": "More text here"
+  }
+]

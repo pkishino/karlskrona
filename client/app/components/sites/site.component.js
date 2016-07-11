@@ -4,8 +4,10 @@ let siteComponent = {
     restrict: 'E',
     bindings: {
         site: '<',
+        sitemap: '<',
         close: '&',
-        dismiss: '&'
+        dismiss: '&',
+        showfull: '&'
     },
     template
 };

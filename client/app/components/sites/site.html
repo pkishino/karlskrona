@@ -3,11 +3,15 @@
 </div>
 <div class="modal-body">
     {{$ctrl.site.text1}}
-    <p>
-    {{$ctrl.site.text2}}
-    <img ng-if='$ctrl.site.logo !== ""' class="site-logo" ng-src="{{ $ctrl.site.logo }}"/>
+    <br> {{$ctrl.site.text2}}
+    <div ng-if='$ctrl.sitemap'>
+        <img class="img-thumbnail" ng-src="{{ ::$ctrl.sitemap }}" width="150px" height="100px" alt="Dive map" title="Dive map" ng-click=$ctrl.showfull() />
+    </div>
+    <div ng-if='!$ctrl.sitemap'>
+    	No dive map available
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">OK</button>
-    <button class="btn btn-primary" type="button" ng-click="$ctrl.dismiss()">close</button>
+    <!-- <button class="btn btn-primary" type="button" ng-click="$ctrl.dismiss()">close</button> -->
 </div>

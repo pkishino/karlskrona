@@ -8,11 +8,13 @@ module.exports = {
   module: {
     loaders: [
        { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
-       { test: /\.html$/, loader: 'raw' },
+       // { test: /\.html$/, loader: 'html?'+JSON.stringify({attrs:["img:src","img:ng-src"]})},
+       { test: /\.html$/, loader: 'raw'},
        { test: /\.styl$/, loader: 'style!css!stylus?paths=node_modules/bootstrap-styl' },
        { test: /\.css$/, loader: 'style!css' },
        { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader' },
-       { test: /\.json$/, loader: 'json'}
+       { test: /\.json$/, loader: 'json'},
+       { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
 
     ]
   },
