@@ -5,7 +5,7 @@
     {{$ctrl.site.text1}}
     <br> {{$ctrl.site.text2}}
     <div ng-if='$ctrl.sitemap'>
-        <img class="img-thumbnail" ng-src="{{ ::$ctrl.sitemap }}" width="150px" height="100px" alt="Dive map" title="Dive map" ng-click=$ctrl.showfull() />
+        <img class="img-thumbnail" ng-src="{{ ::$ctrl.vm.sitemap }}" width="150px" height="100px" alt="Dive map" title="Dive map" ng-click=$ctrl.showfull() />
     </div>
     {{$ctrl.sitemap}}
     <div ng-if='!$ctrl.sitemap'>

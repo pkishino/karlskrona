@@ -1,7 +1,6 @@
 <main class='main'>
-    <div class='site' ng-repeat="site in sites" ng-click="$ctrl.open(site)">
+    <div class='site' ng-repeat="site in $ctrl.vm.sites" ng-click="$ctrl.open(site)">
         <img class="site-logo" ng-src="{{site.logoUrl}}" />
-        {{site.logoUrl}}
         <h3 class="site-h3"> {{ site.title }}
   		</h3>
         <p>{{ site.text1 }}</p>

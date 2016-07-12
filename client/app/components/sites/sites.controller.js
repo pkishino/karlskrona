@@ -1,48 +1,45 @@
 function fetchUrl(url) {
     var storage = firebase.storage();
     var storageRef = storage.ref();
-    storageRef.child(url).getDownloadURL().then(function(urlLong) {
+    return storageRef.child(url).getDownloadURL().then(function(urlLong) {
         return urlLong;
     }).catch(function(error) {
         console.log(error);
-        switch (error.code) {
-            case 'storage/object_not_found':
-                // File doesn't exist
-                break;
-
-            case 'storage/unauthorized':
-                // User doesn't have permission to access the object
-                break;
-
-            case 'storage/canceled':
-                // User canceled the upload
-                break;
-
-            case 'storage/unknown':
-                // Unknown error occurred, inspect the server response
-                break;
+        throw {
+            message: error.code,
+            status: error.status,
+            data: error
         }
     });
 }
 
 class SitesController {
     constructor($scope, $uibModal, $firebaseArray) {
-        this.sites = [];
-        $scope.sites = $firebaseArray(firebase.database().ref().child('sites'));
-        $scope.sites.forEach(function(site) {
-            var url = '';
-            if (!site.logo) {
-                url = 'assets/flagga.png';
-            } else if (site.logo.indexOf('http') == -1) {
-                url = 'assets/' + site.logo;
-            }
-            if (url) {
-                site.logoUrl = fetchUrl(url);
-            } else {
-                site.logoUrl = site.logo;
-            }
+        var vm = this;
+        var sites = $firebaseArray(firebase.database().ref().child('sites'));
+        sites.$loaded().then(function() {
+            sites.forEach(function(site) {
+                var url = '';
+                if (!site.logo) {
+                    url = 'assets/flagga.png';
+                } else if (site.logo.indexOf('http') == -1) {
+                    url = 'assets/' + site.logo;
+                }
+                if (url) {
+                    fetchUrl(url).then(function (value) {
+                        site.logoUrl = value;
+                    });
+                } else {
+                    site.logoUrl = site.logo;
+                }
+            });
+            vm.sites = sites;
         });
-
+        this.vm=vm;
+        sites.$watch(function(event) {
+            console.log(event);
+            vm.sites=sites;
+        });
         this.name = 'sites';
         this.$uibModal = $uibModal;
 
@@ -55,9 +52,13 @@ class SitesController {
                 function($uibModalInstance, Lightbox) {
 
                     this.site = site;
+                    var vm=this;
                     if (site.map) {
-                        this.sitemap = fetchUrl('divemaps/' + site.map);
+                        fetchUrl('divemaps/' + site.map).then(function(value) {
+                            vm.sitemap = value;
+                        });
                     }
+                    this.vm=vm;
                     this.close = $uibModalInstance.close;
                     this.dismiss = $uibModalInstance.dismiss;
                     this.showfull = function() {
