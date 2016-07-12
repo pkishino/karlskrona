@@ -5,4 +5,9 @@
   		</h3>
         <p>{{ site.text1 }}</p>
     </div>
+    <div>
+        <image-picker image-selected="$ctrl.onImageSelected(imageFile)" image-deselected="$ctrl.onImageDeselected()"></image-picker>
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.upload()">upload</button>
+        <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
+    </div>
 </main>
