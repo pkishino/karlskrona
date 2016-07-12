@@ -72,35 +72,37 @@ class SitesController {
     }
     newSite() {
         var modalinstance = this.$uibModal.open({
-            template: '<site site="$ctrl.site" selected="$ctrl.selected(file)" imagefile="$ctrl.imagefile" save="$ctrl.save()" dismiss="$ctrl.dismiss()" sitemap="$ctrl.sitemap" upload="$ctrl.upload()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
+            template: '<site site="$ctrl.site" save="$ctrl.save()" dismiss="$ctrl.dismiss()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
             controllerAs: '$ctrl',
-            controller: ['$scope', '$uibModalInstance', 'Lightbox','Upload',
-                function($scope, $uibModalInstance, Lightbox) {
+            controller: ['$scope', '$uibModalInstance', 'Lightbox', '$firebaseArray',
+                function($scope, $uibModalInstance, Lightbox, $firebaseArray) {
                     this.site = {
                         "title": "",
                         "text1": "",
-                        "text2": ""
+                        "text2": "",
+                        "image": null
                     };
+                    this.scope = $scope;
                     this.new = true;
+                    this.$uibModalInstance = $uibModalInstance;
                     var vm = this;
-                    vm.scope=$scope;
                     this.save = function() {
                         this.upload();
-                        $uibModalInstance.close();
-                    };
-                    this.selected = function(file){
-                        this.imagefile=file;
                     };
                     this.dismiss = $uibModalInstance.dismiss;
-                    $scope.imagefile = null;
                     this.upload = function() {
-                        if (this.imagefile) {
+                        var newSite = {
+                            "title": this.site.title,
+                            "text1": this.site.text1,
+                            "text2": this.site.text2
+                        };
+                        var sites = firebase.database().ref().child('sites').child(newSite.title).set(newSite);
+                        if (this.site.image) {
                             var storage = firebase.storage();
                             var storageRef = storage.ref();
-                            var metadata = { contentType: this.image.type };
-                            var name = this.site.title + this.image.name.slice((this.image.name.lastIndexOf(".") - 1 >>> 0) + 2);
-                            var uploadTask = storageRef.child('divemaps/' + name).put(this.image, metadata);
-                            this.site.map = name;
+                            var metadata = { contentType: this.site.image.type };
+                            var name = this.site.title + "." + this.site.image.name.slice((this.site.image.name.lastIndexOf(".") - 1 >>> 0) + 2);
+                            var uploadTask = storageRef.child('divemaps/' + name).put(this.site.image, metadata);
                             this.uploadtype = 'info';
                             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                                 function(snapshot) {
@@ -134,10 +136,13 @@ class SitesController {
                                 },
                                 function() {
                                     vm.uploadtype = 'success';
+                                    newSite.map = name;
+                                    sites.$save(newSite);
                                     vm.scope.$apply();
+                                    vm.$uibModalInstance.close();
                                 });
                         } else {
-                            console.log('No image selected');
+                            this.$uibModalInstance.close();
                         }
                     };
                 }

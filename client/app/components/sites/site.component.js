@@ -6,15 +6,12 @@ let siteComponent = {
         site: '=',
         sitemap: '<',
         new: '<',
-        file: '=',
-        imagefile: '=',
         uploadvalue: '<',
         uploadtype: '<',
         close: '&',
         save: '&',
         dismiss: '&',
-        showfull: '&',
-        selected: '&'
+        showfull: '&'
     },
     template
 };

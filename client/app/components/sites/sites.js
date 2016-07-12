@@ -4,6 +4,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import lightbox from 'angular-bootstrap-lightbox';
 import angularfire from 'angularfire';
 import fileupload from 'ng-file-upload';
+import ngMessages from 'angular-messages';
 
 import sitesComponent from './sites.component';
 import siteComponent from './site.component';
@@ -13,7 +14,8 @@ let sitesModule = angular.module('sites', [
   uiBootstrap,
   lightbox,
   angularfire,
-  fileupload
+  fileupload,
+  ngMessages
 ])
 .config(($stateProvider, $urlRouterProvider) => {
   "ngInject";
