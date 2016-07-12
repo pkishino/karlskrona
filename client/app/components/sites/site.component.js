@@ -5,9 +5,17 @@ let siteComponent = {
     bindings: {
         site: '<',
         sitemap: '<',
+        new: '<',
+        image: '<',
+        uploadvalue: '<',
+        uploadtype: '<',
         close: '&',
         dismiss: '&',
-        showfull: '&'
+        showfull: '&',
+        upload: '&',
+        onImageSelected: '&',
+        onImageDeselected: '&',
+
     },
     template
 };

@@ -1,17 +1,31 @@
-<div class="modal-header">
+<div ng-if="!$ctrl.new" class="modal-header">
     <h3 class="modal-title">{{$ctrl.site.title}}</h3>
 </div>
-<div class="modal-body">
+<div ng-if="!$ctrl.new" class="modal-body">
     {{$ctrl.site.text1}}
     <br> {{$ctrl.site.text2}}
     <div ng-if='$ctrl.sitemap'>
         <img class="img-thumbnail" ng-src="{{ ::$ctrl.sitemap }}" width="150px" height="100px" alt="Dive map" title="Dive map" ng-click=$ctrl.showfull() />
     </div>
     <div ng-if='!$ctrl.sitemap'>
-    	No dive map available
+        No dive map available
     </div>
 </div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">OK</button>
-    <!-- <button class="btn btn-primary" type="button" ng-click="$ctrl.dismiss()">close</button> -->
+<div ng-if="!$ctrl.new" class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">Close</button>
+</div>
+<div ng-if="$ctrl.new" class="modal-header">
+    <input type="text" ng-model="$ctrl.site.title" placeholder="Divesite name" />
+</div>
+<div ng-if="$ctrl.new" class="modal-body">
+    <input type="text" ng-model="$ctrl.site.text1" placeholder="Short description, visible on sites page" />
+    <br>
+    <input type="text" ng-model="$ctrl.site.text2" placeholder="Longer description, visible on the site page" />
+    <image-picker image-selected="$ctrl.onImageSelected(imageFile)" image-deselected="$ctrl.onImageDeselected()"></image-picker>
+    <button ng-if="$ctrl.uploadtype !== 'success'" ng-disabled="!$ctrl.image" class="btn btn-primary" type="button" ng-click="$ctrl.upload()">upload dive map</button>
+    <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
+</div>
+<div ng-if="$ctrl.new" class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">Save</button>
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.dismiss()">Cancel</button>
 </div>

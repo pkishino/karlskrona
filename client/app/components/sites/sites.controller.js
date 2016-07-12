@@ -46,11 +46,10 @@ class SitesController {
     }
     open(site) {
         var modalinstance = this.$uibModal.open({
-            template: '<site site="$ctrl.site" close="$ctrl.close()" dismiss="$ctrl.dismiss()" sitemap="$ctrl.sitemap" showfull="$ctrl.showfull()"></site>',
+            template: '<site site="$ctrl.site" close="$ctrl.close()" sitemap="$ctrl.sitemap" showfull="$ctrl.showfull()"></site>',
             controllerAs: '$ctrl',
             controller: ['$scope', '$uibModalInstance', 'Lightbox',
                 function($scope, $uibModalInstance, Lightbox) {
-
                     this.site = site;
                     var vm = this;
                     if (site.map) {
@@ -60,7 +59,6 @@ class SitesController {
                         });
                     }
                     this.close = $uibModalInstance.close;
-                    this.dismiss = $uibModalInstance.dismiss;
                     this.showfull = function() {
                         var image = {
                             'url': vm.sitemap,
@@ -71,62 +69,83 @@ class SitesController {
                 }
             ]
         });
+    }
+    newSite() {
+        var modalinstance = this.$uibModal.open({
+            template: '<site site="$ctrl.site" image="$ctrl.image" close="$ctrl.close()" dismiss="$ctrl.dismiss()" sitemap="$ctrl.sitemap" onImageSelected="$ctrl.onImageSelected()" onImageDeselected="$ctrl.onImageDeselected()" upload="$ctrl.upload()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
+            controllerAs: '$ctrl',
+            controller: ['$scope', '$uibModalInstance', 'Lightbox',
+                function($scope, $uibModalInstance, Lightbox) {
+                    this.site = {
+                        "title": "",
+                        "text1": "",
+                        "text2": ""
+                    };
+                    this.new = true;
+                    this.close = function(){
+                        $uibModalInstance.close();
+                    };
+                    this.dismiss = $uibModalInstance.dismiss;
+                    this.onImageSelected = function(file) {
+                        this.image = file;
+                    };
+                    this.onImageDeselected = function() {
+                        this.image = null;
+                    };
+                    this.upload = function() {
+                        if (this.image) {
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref();
+                            var metadata = { contentType: this.image.type };
+                            var name = this.site.title+this.image.name.slice((this.image.name.lastIndexOf(".") - 1 >>> 0) + 2);
+                            var uploadTask = storageRef.child('divemaps/' + name).put(this.image, metadata);
+                            this.site.map = name;
+                            this.uploadtype = 'info';
+                            var vm = this;
+                            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                                function(snapshot) {
+                                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                    vm.uploadvalue = Math.floor(progress);
+                                    vm.scope.$apply();
+                                    switch (snapshot.state) {
+                                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                            console.log('Upload is paused');
+                                            break;
+                                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                                            console.log('Upload is running');
+                                            break;
+                                    }
+                                },
+                                function(error) {
+                                    switch (error.code) {
+                                        case 'storage/unauthorized':
+                                            // User doesn't have permission to access the object
+                                            break;
+
+                                        case 'storage/canceled':
+                                            // User canceled the upload
+                                            break;
+
+                                        case 'storage/unknown':
+                                            // Unknown error occurred, inspect error.serverResponse
+                                            break;
+                                    }
+                                },
+                                function() {
+                                    vm.uploadtype = 'success';
+                                    vm.scope.$apply();
+                                });
+                        } else {
+                            console.log('No image selected');
+                        }
+                    };
+                }
+            ]
+        });
         modalinstance.result.then(function() {}, function() {
             console.log('Dismissed modal');
         });
-    }
-    onImageSelected(file) {
-        this.image = file;
-    }
-    onImageDeselected(){
-        this.image = null;
-    }
-    upload() {
-        if (this.image) {
-            var storage = firebase.storage();
-            var storageRef = storage.ref();
-            var metadata = { contentType: this.image.type };
-            var uploadTask = storageRef.child('divemaps/' + this.image.name).put(this.image, metadata);
-            this.uploadtype = 'info';
-            var vm = this;
-            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                function(snapshot) {
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    vm.uploadvalue = Math.floor(progress);
-                    vm.scope.$apply();
-                    switch (snapshot.state) {
-                        case firebase.storage.TaskState.PAUSED: // or 'paused'
-                            console.log('Upload is paused');
-                            break;
-                        case firebase.storage.TaskState.RUNNING: // or 'running'
-                            console.log('Upload is running');
-                            break;
-                    }
-                },
-                function(error) {
-                    switch (error.code) {
-                        case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            break;
-
-                        case 'storage/canceled':
-                            // User canceled the upload
-                            break;
-
-                        case 'storage/unknown':
-                            // Unknown error occurred, inspect error.serverResponse
-                            break;
-                    }
-                },
-                function() {
-                    // Upload completed successfully, now we can get the download URL
-                    var downloadURL = uploadTask.snapshot.downloadURL;
-                    vm.onImageSelected(null);
-                    vm.uploadtype = 'success';
-                    vm.scope.$apply();
-                });
-        }
     }
 }
 SitesController.$inject = ['$scope', '$uibModal', '$firebaseArray'];
