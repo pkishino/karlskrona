@@ -3,19 +3,18 @@ import template from './site.html';
 let siteComponent = {
     restrict: 'E',
     bindings: {
-        site: '<',
+        site: '=',
         sitemap: '<',
         new: '<',
-        image: '<',
+        file: '=',
+        imagefile: '=',
         uploadvalue: '<',
         uploadtype: '<',
         close: '&',
+        save: '&',
         dismiss: '&',
         showfull: '&',
-        upload: '&',
-        onImageSelected: '&',
-        onImageDeselected: '&',
-
+        selected: '&'
     },
     template
 };

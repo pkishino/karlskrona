@@ -3,7 +3,7 @@ import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import lightbox from 'angular-bootstrap-lightbox';
 import angularfire from 'angularfire';
-import ngImage from 'ng-image-picker';
+import fileupload from 'ng-file-upload';
 
 import sitesComponent from './sites.component';
 import siteComponent from './site.component';
@@ -13,7 +13,7 @@ let sitesModule = angular.module('sites', [
   uiBootstrap,
   lightbox,
   angularfire,
-  ngImage
+  fileupload
 ])
 .config(($stateProvider, $urlRouterProvider) => {
   "ngInject";

@@ -72,9 +72,9 @@ class SitesController {
     }
     newSite() {
         var modalinstance = this.$uibModal.open({
-            template: '<site site="$ctrl.site" image="$ctrl.image" close="$ctrl.close()" dismiss="$ctrl.dismiss()" sitemap="$ctrl.sitemap" onImageSelected="$ctrl.onImageSelected()" onImageDeselected="$ctrl.onImageDeselected()" upload="$ctrl.upload()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
+            template: '<site site="$ctrl.site" selected="$ctrl.selected(file)" imagefile="$ctrl.imagefile" save="$ctrl.save()" dismiss="$ctrl.dismiss()" sitemap="$ctrl.sitemap" upload="$ctrl.upload()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
             controllerAs: '$ctrl',
-            controller: ['$scope', '$uibModalInstance', 'Lightbox',
+            controller: ['$scope', '$uibModalInstance', 'Lightbox','Upload',
                 function($scope, $uibModalInstance, Lightbox) {
                     this.site = {
                         "title": "",
@@ -82,26 +82,26 @@ class SitesController {
                         "text2": ""
                     };
                     this.new = true;
-                    this.close = function(){
+                    var vm = this;
+                    vm.scope=$scope;
+                    this.save = function() {
+                        this.upload();
                         $uibModalInstance.close();
                     };
+                    this.selected = function(file){
+                        this.imagefile=file;
+                    };
                     this.dismiss = $uibModalInstance.dismiss;
-                    this.onImageSelected = function(file) {
-                        this.image = file;
-                    };
-                    this.onImageDeselected = function() {
-                        this.image = null;
-                    };
+                    $scope.imagefile = null;
                     this.upload = function() {
-                        if (this.image) {
+                        if (this.imagefile) {
                             var storage = firebase.storage();
                             var storageRef = storage.ref();
                             var metadata = { contentType: this.image.type };
-                            var name = this.site.title+this.image.name.slice((this.image.name.lastIndexOf(".") - 1 >>> 0) + 2);
+                            var name = this.site.title + this.image.name.slice((this.image.name.lastIndexOf(".") - 1 >>> 0) + 2);
                             var uploadTask = storageRef.child('divemaps/' + name).put(this.image, metadata);
                             this.site.map = name;
                             this.uploadtype = 'info';
-                            var vm = this;
                             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                                 function(snapshot) {
                                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
