@@ -9,7 +9,7 @@ function fetchUrl(url) {
             message: error.code,
             status: error.status,
             data: error
-        }
+        };
     });
 }
 
@@ -28,6 +28,7 @@ class SitesController {
                 if (url) {
                     fetchUrl(url).then(function (value) {
                         site.logoUrl = value;
+                        $scope.$apply();
                     });
                 } else {
                     site.logoUrl = site.logo;
@@ -35,9 +36,7 @@ class SitesController {
             });
             vm.sites = sites;
         });
-        this.vm=vm;
-        sites.$watch(function(event) {
-            console.log(event);
+        $scope.$watch(function(event) {
             vm.sites=sites;
         });
         this.name = 'sites';
@@ -48,22 +47,22 @@ class SitesController {
         var modalinstance = this.$uibModal.open({
             template: '<site site="$ctrl.site" close="$ctrl.close()" dismiss="$ctrl.dismiss()" sitemap="$ctrl.sitemap" showfull="$ctrl.showfull()"></site>',
             controllerAs: '$ctrl',
-            controller: ['$uibModalInstance', 'Lightbox',
-                function($uibModalInstance, Lightbox) {
+            controller: ['$scope','$uibModalInstance', 'Lightbox',
+                function($scope, $uibModalInstance, Lightbox) {
 
                     this.site = site;
                     var vm=this;
                     if (site.map) {
                         fetchUrl('divemaps/' + site.map).then(function(value) {
                             vm.sitemap = value;
+                            $scope.$apply();
                         });
                     }
-                    this.vm=vm;
                     this.close = $uibModalInstance.close;
                     this.dismiss = $uibModalInstance.dismiss;
                     this.showfull = function() {
                         var image = {
-                            'url': this.sitemap,
+                            'url': vm.sitemap,
                             'caption': this.site.title
                         };
                         Lightbox.openModal([image], 0);
