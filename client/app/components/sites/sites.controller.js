@@ -17,32 +17,32 @@ class SitesController {
     constructor($scope, $uibModal, $firebaseArray) {
         this.scope = $scope;
         var vm = this;
-        var sites = $firebaseArray(firebase.database().ref().child('sites'));
-        sites.$loaded().then(function() {
-            sites.forEach(function(site) {
-                var url = '';
-                if (!site.logo) {
-                    url = 'assets/flagga.png';
-                } else if (site.logo.indexOf('http') == -1) {
-                    url = 'assets/' + site.logo;
-                }
-                if (url) {
-                    fetchUrl(url).then(function(value) {
-                        site.logoUrl = value;
-                        $scope.$apply();
-                    });
-                } else {
-                    site.logoUrl = site.logo;
-                }
-            });
-            vm.sites = sites;
-        });
-        $scope.$watch(function(event) {
-            vm.sites = sites;
+        $scope.sites = $firebaseArray(firebase.database().ref().child('sites'));
+        $scope.sites.$watch(function (e) {
+            var key = e.key;
+
+             vm.sites = $scope.sites; 
         });
         this.name = 'sites';
         this.$uibModal = $uibModal;
-        this.image = null;
+    }
+    fetchLogo(site) {
+        var url = '';
+        if (!site.logo) {
+            url = 'assets/flagga.png';
+        } else if (site.logo.indexOf('http') == -1) {
+            url = 'assets/' + site.logo;
+        }
+        if (url) {
+            fetchUrl(url).then(function(value) {
+                // site.logoUrl = value;
+                // vm.scope.$apply();
+                return value;
+            });
+        } else {
+            url = site.logo;
+        }
+        return url;
     }
     open(site) {
         var modalinstance = this.$uibModal.open({
@@ -96,11 +96,10 @@ class SitesController {
                             "text1": this.site.text1,
                             "text2": this.site.text2
                         };
-                        var ref = firebase.database().ref().child('sites').child(newSite.title);
-                        ref.set(newSite);
+                        var databaseRef = firebase.database();
+                        var siteKey = databaseRef.ref('sites').push(newSite).key;
                         if (this.site.image) {
-                            var storage = firebase.storage();
-                            var storageRef = storage.ref();
+                            var storageRef = firebase.storage().ref();
                             var metadata = { contentType: this.site.image.type };
                             var name = this.site.title + "." + this.site.image.name.slice((this.site.image.name.lastIndexOf(".") - 1 >>> 0) + 2);
                             var uploadTask = storageRef.child('divemaps/' + name).put(this.site.image, metadata);
@@ -137,7 +136,7 @@ class SitesController {
                                 function() {
                                     vm.uploadtype = 'success';
                                     newSite.map = name;
-                                    ref.set(newSite);
+                                    databaseRef.ref('sites/'+siteKey).update({ map: name });
                                     vm.$uibModalInstance.close();
                                 });
                         } else {
