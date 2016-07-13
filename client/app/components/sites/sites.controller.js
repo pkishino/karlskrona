@@ -96,7 +96,8 @@ class SitesController {
                             "text1": this.site.text1,
                             "text2": this.site.text2
                         };
-                        var sites = firebase.database().ref().child('sites').child(newSite.title).set(newSite);
+                        var ref = firebase.database().ref().child('sites').child(newSite.title);
+                        ref.set(newSite);
                         if (this.site.image) {
                             var storage = firebase.storage();
                             var storageRef = storage.ref();
@@ -106,7 +107,6 @@ class SitesController {
                             this.uploadtype = 'info';
                             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                                 function(snapshot) {
-                                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                                     vm.uploadvalue = Math.floor(progress);
                                     vm.scope.$apply();
@@ -137,8 +137,7 @@ class SitesController {
                                 function() {
                                     vm.uploadtype = 'success';
                                     newSite.map = name;
-                                    sites.$save(newSite);
-                                    vm.scope.$apply();
+                                    ref.set(newSite);
                                     vm.$uibModalInstance.close();
                                 });
                         } else {
