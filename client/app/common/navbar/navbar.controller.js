@@ -9,7 +9,7 @@ class NavbarController {
             }
         }, {
             heading: 'Map',
-            route: 'map',
+            route: 'myMap',
             params: {
                 icon: 'glyphicon glyphicon-map-marker'
             }

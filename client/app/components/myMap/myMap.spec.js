@@ -1,16 +1,16 @@
-import MapModule from './map'
-import MapController from './map.controller';
-import MapComponent from './map.component';
-import MapTemplate from './map.html';
+import MyMapModule from './myMap'
+import MyMapController from './myMap.controller';
+import MyMapComponent from './myMap.component';
+import MyMapTemplate from './myMap.html';
 
-describe('Map', () => {
+describe('MyMap', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(MapModule));
+  beforeEach(window.module(MyMapModule));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new MapController();
+      return new MyMapController();
     };
   }));
 
@@ -30,20 +30,20 @@ describe('Map', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(MapTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
+      expect(MyMapTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = MapComponent;
+      let component = MyMapComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(MapTemplate);
+        expect(component.template).to.equal(MyMapTemplate);
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(MapController);
+        expect(component.controller).to.equal(MyMapController);
       });
   });
 });
