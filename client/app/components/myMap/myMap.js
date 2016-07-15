@@ -1,11 +1,13 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngmap from 'ngmap';
+import angularfire from 'angularfire';
 import myMapComponent from './myMap.component';
 
 let myMapModule = angular.module('myMap', [
   uiRouter,
-  ngmap
+  ngmap,
+  angularfire
 ])
 .config(($stateProvider, $urlRouterProvider) => {
   "ngInject";

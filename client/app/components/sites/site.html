@@ -3,7 +3,7 @@
 </div>
 <div ng-if="!$ctrl.new" class="modal-body">
     {{$ctrl.site.text1}}
-    <br> {{$ctrl.site.text2}}
+    <br/> {{$ctrl.site.text2}}
     <div ng-if='$ctrl.sitemap'>
         <img class="img-thumbnail" ng-src="{{ ::$ctrl.sitemap }}" width="150px" height="100px" alt="Dive map" title="Dive map" ng-click=$ctrl.showfull() />
     </div>
@@ -22,12 +22,12 @@
 </form>
 <form ng-if="$ctrl.new" class="modal-body" name="body">
     <input type="text" ng-model="$ctrl.site.text1" placeholder="Short description, visible on sites page" />
-    <br>
+    <br>/
     <textarea type="text" name="userMessage" ng-model="$ctrl.site.text2" ng-minlength="50" ng-maxlength="1000" placeholder="Longer description, visible on the site page">
     </textarea>
-    <br>
+    <br/>
     <button class="btn btn-primary" type="button" ngf-select ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.site.image">Select dive map</button>
-    <br>
+    <br/>
     <img ngf-thumbnail="$ctrl.site.image" class="img-thumnail" width="150px" height="100px" alt="Dive map" title="Dive map" />
     <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
 </form>
