@@ -18,10 +18,10 @@ class SitesController {
         this.scope = $scope;
         var vm = this;
         $scope.sites = $firebaseArray(firebase.database().ref().child('sites'));
-        $scope.sites.$watch(function (e) {
+        $scope.sites.$watch(function(e) {
             var key = e.key;
 
-             vm.sites = $scope.sites; 
+            vm.sites = $scope.sites;
         });
         this.name = 'sites';
         this.$uibModal = $uibModal;
@@ -80,6 +80,8 @@ class SitesController {
                         "title": "",
                         "text1": "",
                         "text2": "",
+                        "lat": "",
+                        "long": "",
                         "image": null
                     };
                     this.scope = $scope;
@@ -94,7 +96,9 @@ class SitesController {
                         var newSite = {
                             "title": this.site.title,
                             "text1": this.site.text1,
-                            "text2": this.site.text2
+                            "text2": this.site.text2,
+                            "lat": this.site.lat,
+                            "long": this.site.long
                         };
                         var databaseRef = firebase.database();
                         var siteKey = databaseRef.ref('sites').push(newSite).key;
@@ -136,7 +140,7 @@ class SitesController {
                                 function() {
                                     vm.uploadtype = 'success';
                                     newSite.map = name;
-                                    databaseRef.ref('sites/'+siteKey).update({ map: name });
+                                    databaseRef.ref('sites/' + siteKey).update({ map: name });
                                     vm.$uibModalInstance.close();
                                 });
                         } else {
