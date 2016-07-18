@@ -2,13 +2,17 @@
     <h3 class="modal-title">{{$ctrl.site.title}}</h3>
 </div>
 <div ng-if="!$ctrl.new" class="modal-body">
-    {{$ctrl.site.text1}}
-    <br/> {{$ctrl.site.text2}}
-    <div ng-if='$ctrl.sitemap'>
+    <h4><i>Dykinfo:</i> {{$ctrl.site.text1}}</h4>
+    <br/>
+    <i>Siteinfo:</i> {{$ctrl.site.text2}}
+    <div ng-if='$ctrl.sitemap' style="text-align:center">
         <img class="img-thumbnail" ng-src="{{ ::$ctrl.sitemap }}" width="150px" height="100px" alt="Dive map" title="Dive map" ng-click=$ctrl.showfull() />
     </div>
-    <div ng-if='!$ctrl.sitemap'>
+    <div ng-if='!$ctrl.sitemap && !$ctrl.site.map'>
         No dive map available
+    </div>
+    <div ng-if='!$ctrl.sitemap && $ctrl.site.map'>
+        Dive map loading...
     </div>
 </div>
 <div ng-if="!$ctrl.new" class="modal-footer">

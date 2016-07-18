@@ -138,11 +138,23 @@ gulp.task('divekarlskrona', ['webpack'], function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('deploy', ['divekarlskrona'], function() {
+gulp.task('deployH', ['divekarlskrona'], function() {
     gulp.src('dist/**')
         .pipe(rsync({
             root: 'dist/',
             hostname: 'hackserver.patrickziegler.se',
+            destination: '~/Sites/divekarlskrona',
+            archive: true,
+            silent: false,
+            compress: true
+        }));
+});
+gulp.task('deployR', ['divekarlskrona'], function() {
+    gulp.src('dist/**')
+        .pipe(rsync({
+            root: 'dist/',
+            hostname: 'patrickziegler.se',
+            port: 6969,
             destination: '~/Sites/divekarlskrona',
             archive: true,
             silent: false,
