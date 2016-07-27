@@ -1,49 +1,56 @@
 import MyMapModule from './myMap'
-import MyMapController from './myMap.controller';
-import MyMapComponent from './myMap.component';
-import MyMapTemplate from './myMap.html';
 
-describe('MyMap', () => {
-  let $rootScope, makeController;
+describe('myMap', () => {
+  let $rootScope, $state, $location, $componentController, $compile, $firebaseArray, NgMap;
 
   beforeEach(window.module(MyMapModule));
-  beforeEach(inject((_$rootScope_) => {
-    $rootScope = _$rootScope_;
-    makeController = () => {
-      return new MyMapController();
-    };
+
+  beforeEach(inject(($injector) => {
+    $rootScope = $injector.get('$rootScope');
+    $componentController = $injector.get('$componentController');
+    $state = $injector.get('$state');
+    $location = $injector.get('$location');
+    $compile = $injector.get('$compile');
+    $firebaseArray = $injector.get('$firebaseArray');
+    NgMap = $injector.get('NgMap');
   }));
 
   describe('Module', () => {
     // top-level specs: i.e., routes, injection, naming
+    it('myMap component should be visible when navigates to /myMap', () => {
+      $location.url('/myMap');
+      $rootScope.$digest();
+      expect($state.current.component).to.eq('myMap');
+    });
   });
 
   describe('Controller', () => {
     // controller specs
-    it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
-      let controller = makeController();
+    let controller;
+    beforeEach(() => {
+      controller = $componentController('myMap', {
+        $scope: $rootScope.$new()
+      });
+    });
+
+    it('has a name property', () => { // erase if removing this.name from the controller
       expect(controller).to.have.property('name');
     });
   });
 
-  describe('Template', () => {
-    // template specs
-    // tip: use regex to ensure correct bindings are used e.g., {{  }}
-    it('has name in template [REMOVE]', () => {
-      expect(MyMapTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
+  describe('View', () => {
+    // view layer specs.
+    let scope, template;
+
+    beforeEach(() => {
+      scope = $rootScope.$new();
+      template = $compile('<my-map></my-map>')(scope);
+      scope.$apply();
     });
-  });
 
-  describe('Component', () => {
-      // component/directive specs
-      let component = MyMapComponent;
+    it('has name in template', () => {
+      expect(template.find('div').class()).to.eq('mapview');
+    });
 
-      it('includes the intended template',() => {
-        expect(component.template).to.equal(MyMapTemplate);
-      });
-
-      it('invokes the right controller', () => {
-        expect(component.controller).to.equal(MyMapController);
-      });
   });
 });

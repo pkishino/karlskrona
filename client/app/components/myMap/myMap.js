@@ -17,7 +17,7 @@ let myMapModule = angular.module('myMap', [
   $stateProvider
     .state('myMap', {
       url: '/myMap',
-      template: '<my-map></my-map>'
+      component: 'myMap'
     });
 })
 
