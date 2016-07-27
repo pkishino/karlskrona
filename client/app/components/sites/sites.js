@@ -5,6 +5,7 @@ import lightbox from 'angular-bootstrap-lightbox';
 import angularfire from 'angularfire';
 import fileupload from 'ng-file-upload';
 import ngMessages from 'angular-messages';
+import firebaseFactory from '../../common/firebase/firebase';
 
 import sitesComponent from './sites.component';
 import siteComponent from './site.component';
@@ -15,7 +16,8 @@ let sitesModule = angular.module('sites', [
   lightbox,
   angularfire,
   fileupload,
-  ngMessages
+  ngMessages,
+  firebaseFactory
 ])
 .config(($stateProvider, $urlRouterProvider) => {
   "ngInject";
@@ -25,7 +27,7 @@ let sitesModule = angular.module('sites', [
   $stateProvider
     .state('sites', {
       url: '/sites',
-      template: '<sites></sites>'
+      component: 'sites'
     });
 })
 

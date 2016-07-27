@@ -1,7 +1,7 @@
 import MyMapModule from './myMap'
 
 describe('myMap', () => {
-  let $rootScope, $state, $location, $componentController, $compile, $firebaseArray, NgMap;
+  let $rootScope, $state, $location, $componentController, $compile;
 
   beforeEach(window.module(MyMapModule));
 
@@ -11,8 +11,6 @@ describe('myMap', () => {
     $state = $injector.get('$state');
     $location = $injector.get('$location');
     $compile = $injector.get('$compile');
-    $firebaseArray = $injector.get('$firebaseArray');
-    NgMap = $injector.get('NgMap');
   }));
 
   describe('Module', () => {
@@ -48,8 +46,8 @@ describe('myMap', () => {
       scope.$apply();
     });
 
-    it('has name in template', () => {
-      expect(template.find('div').class()).to.eq('mapview');
+    it('has correct class', () => {
+      expect(template.find('div').hasClass("mapview")).to.eq(true);
     });
 
   });

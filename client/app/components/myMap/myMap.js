@@ -3,11 +3,13 @@ import uiRouter from 'angular-ui-router';
 import ngmap from 'ngmap';
 import angularfire from 'angularfire';
 import myMapComponent from './myMap.component';
+import firebaseFactory from '../../common/firebase/firebase';
 
 let myMapModule = angular.module('myMap', [
   uiRouter,
   ngmap,
-  angularfire
+  angularfire,
+  firebaseFactory
 ])
 .config(($stateProvider, $urlRouterProvider) => {
   "ngInject";

@@ -14,9 +14,10 @@ function fetchUrl(url) {
 }
 
 class SitesController {
-    constructor($scope, $uibModal, $firebaseArray) {
+    constructor($scope, $uibModal, $firebaseArray, FirebaseFactory) {
         this.scope = $scope;
         var vm = this;
+        FirebaseFactory.initialize();
         $scope.sites = $firebaseArray(firebase.database().ref().child('sites'));
         $scope.sites.$watch(function(e) {
             var key = e.key;
@@ -155,5 +156,5 @@ class SitesController {
         });
     }
 }
-SitesController.$inject = ['$scope', '$uibModal', '$firebaseArray'];
+SitesController.$inject = ['$scope', '$uibModal', '$firebaseArray', 'FirebaseFactory'];
 export default SitesController;

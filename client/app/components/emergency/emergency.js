@@ -13,7 +13,7 @@ let emergencyModule = angular.module('emergency', [
   $stateProvider
     .state('emergency', {
       url: '/emergency',
-      template: '<emergency></emergency>'
+      component: 'emergency'
     });
 })
 

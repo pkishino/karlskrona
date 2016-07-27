@@ -17,11 +17,3 @@ angular.module('app', [
     })
 
 .component('app', AppComponent);
-
-var config = {
-    apiKey: "AIzaSyBbS0TVtTSSBiIup-LahxxY773efpz6qFA",
-    authDomain: "dive-karlskrona.firebaseapp.com",
-    databaseURL: "https://dive-karlskrona.firebaseio.com",
-    storageBucket: "dive-karlskrona.appspot.com",
-};
-firebase.initializeApp(config);

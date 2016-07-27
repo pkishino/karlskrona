@@ -1,49 +1,54 @@
 import EmergencyModule from './emergency'
-import EmergencyController from './emergency.controller';
-import EmergencyComponent from './emergency.component';
-import EmergencyTemplate from './emergency.html';
 
 describe('Emergency', () => {
-  let $rootScope, makeController;
+  let $rootScope, $state, $location, $componentController, $compile;
 
   beforeEach(window.module(EmergencyModule));
-  beforeEach(inject((_$rootScope_) => {
-    $rootScope = _$rootScope_;
-    makeController = () => {
-      return new EmergencyController();
-    };
+
+  beforeEach(inject(($injector) => {
+    $rootScope = $injector.get('$rootScope');
+    $componentController = $injector.get('$componentController');
+    $state = $injector.get('$state');
+    $location = $injector.get('$location');
+    $compile = $injector.get('$compile');
   }));
 
   describe('Module', () => {
     // top-level specs: i.e., routes, injection, naming
+    it('Emergency component should be visible when navigates to /emergency', () => {
+      $location.url('/emergency');
+      $rootScope.$digest();
+      expect($state.current.component).to.eq('emergency');
+    });
   });
 
   describe('Controller', () => {
     // controller specs
-    it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
-      let controller = makeController();
+    let controller;
+    beforeEach(() => {
+      controller = $componentController('emergency', {
+        $scope: $rootScope.$new()
+      });
+    });
+
+    it('has a name property', () => { // erase if removing this.name from the controller
       expect(controller).to.have.property('name');
     });
   });
 
-  describe('Template', () => {
-    // template specs
-    // tip: use regex to ensure correct bindings are used e.g., {{  }}
-    it('has name in template [REMOVE]', () => {
-      expect(EmergencyTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
+  describe('View', () => {
+    // view layer specs.
+    let scope, template;
+
+    beforeEach(() => {
+      scope = $rootScope.$new();
+      template = $compile('<emergency></emergency>')(scope);
+      scope.$apply();
     });
-  });
 
-  describe('Component', () => {
-      // component/directive specs
-      let component = EmergencyComponent;
+    it('has name in template', () => {
+      expect(template.find('h1').html()).to.eq('emergency');
+    });
 
-      it('includes the intended template',() => {
-        expect(component.template).to.equal(EmergencyTemplate);
-      });
-
-      it('invokes the right controller', () => {
-        expect(component.controller).to.equal(EmergencyController);
-      });
   });
 });
