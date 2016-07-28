@@ -18,6 +18,8 @@ import colorsSupported from 'supports-color';
 import historyApiFallback from 'connect-history-api-fallback';
 import rsync from 'gulp-rsync';
 import replace from 'gulp-replace-task';
+import gulpProtractorAngular from 'gulp-angular-protractor';
+
 
 let root = 'client';
 
@@ -127,7 +129,27 @@ gulp.task('clean', (cb) => {
 
 gulp.task('default', ['watch']);
 
-gulp.task('divekarlskrona', ['webpack'], function() {
+// Setting up the test task 
+gulp.task('protractor', ['serve'], (cb) => {
+    gulp
+        .src(['example_spec.js'])
+        .pipe(gulpProtractorAngular({
+            'configFile': 'protractor.conf.js',
+            'debug': false,
+            'autoStartStopServer': true
+        }))
+        .on('error', function(e) {
+            console.log(e);
+        })
+        .on('end', cb);
+});
+
+
+gulp.task('e2e', ['protractor'], () => {
+    process.exit();
+});
+
+gulp.task('divekarlskrona', ['webpack'], () => {
     gulp.src(['dist/index.html'])
         .pipe(replace({
             patterns: [{
@@ -138,7 +160,7 @@ gulp.task('divekarlskrona', ['webpack'], function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('deployH', ['divekarlskrona'], function() {
+gulp.task('deployH', ['divekarlskrona'], () => {
     gulp.src('dist/**')
         .pipe(rsync({
             root: 'dist/',
@@ -149,7 +171,7 @@ gulp.task('deployH', ['divekarlskrona'], function() {
             compress: true
         }));
 });
-gulp.task('deployR', ['divekarlskrona'], function() {
+gulp.task('deployR', ['divekarlskrona'], () => {
     gulp.src('dist/**')
         .pipe(rsync({
             root: 'dist/',

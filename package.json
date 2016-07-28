@@ -35,6 +35,7 @@
     "file-loader": "^0.9.0",
     "fs-walk": "0.0.1",
     "gulp": "^3.9.0",
+    "gulp-angular-protractor": "^0.1.1",
     "gulp-rename": "^1.2.2",
     "gulp-replace-task": "^0.11.0",
     "gulp-rsync": "0.0.6",
@@ -42,6 +43,7 @@
     "gulp-util": "^3.0.7",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^1.7.0",
+    "jasmine": "^2.4.1",
     "json-loader": "^0.5.4",
     "karma": "^0.13.9",
     "karma-chai": "^0.1.0",
@@ -54,6 +56,7 @@
     "mocha": "^2.3.0",
     "ng-annotate-loader": "0.0.10",
     "node-libs-browser": "^0.5.0",
+    "protractor": "^4.0.2",
     "raw-loader": "^0.5.1",
     "run-sequence": "^1.1.0",
     "style-loader": "^0.12.2",
@@ -67,7 +70,8 @@
     "yargs": "^3.9.0"
   },
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "e2e": "gulp e2e"
   },
   "keywords": [
     "angular",

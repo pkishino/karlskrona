@@ -13,7 +13,7 @@ let <%= name %>Module = angular.module('<%= name %>', [
   $stateProvider
     .state('<%= name %>', {
       url: '/<%= name %>',
-      template: '<<%= name %>></<%= name %>>'
+      component: '<%= name %>'
     });
 })
 
