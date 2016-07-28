@@ -19,7 +19,8 @@ module.exports = function(config) {
             require("karma-mocha"),
             require("karma-mocha-reporter"),
             require("karma-sourcemap-loader"),
-            require("karma-webpack")
+            require("karma-webpack"),
+            require("karma-coverage")
         ],
 
         // preprocess matching files before serving them to the browser
@@ -27,18 +28,21 @@ module.exports = function(config) {
         preprocessors: { 'spec.bundle.js': ['webpack', 'sourcemap'] },
 
         webpack: {
+            isparta: {
+                embedSource: true,
+                noAutoWrap: true
+            },
             devtool: 'inline-source-map',
             module: {
                 loaders: [
-                    { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
-                    // { test: /\.html$/, loader: 'html?'+JSON.stringify({attrs:["img:src","img:ng-src"]})},
+                    { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel!isparta' },
                     { test: /\.html$/, loader: 'raw' },
                     { test: /\.styl$/, loader: 'style!css!stylus?paths=node_modules/bootstrap-styl' },
                     { test: /\.css$/, loader: 'style!css' },
                     { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader' },
                     { test: /\.json$/, loader: 'json' },
                     { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
-                ]
+                ],
             }
         },
 
@@ -47,7 +51,12 @@ module.exports = function(config) {
         },
 
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['mocha'],
+        reporters: ['mocha', 'progress', 'coverage'],
+
+        coverageReporter: {
+            type: 'html',
+            dir: 'coverage/'
+        },
 
         // web server port
         port: 9876,
@@ -67,6 +76,6 @@ module.exports = function(config) {
         browsers: ['Chrome'],
 
         // if true, Karma runs tests once and exits
-        singleRun: false
+        singleRun: true
     });
 };

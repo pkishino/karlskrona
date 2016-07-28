@@ -26,8 +26,11 @@ describe('Navbar', () => {
       });
     });
 
-    it('has a name property', () => { // erase if removing this.name from the controller
+    it('has a name property', () => {
       expect(controller).to.have.property('name');
+    });
+    it('has a tabdata property', () => {
+      expect(controller).to.have.property('tabData')
     });
   });
 
