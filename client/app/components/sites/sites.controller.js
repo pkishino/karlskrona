@@ -14,18 +14,21 @@ function fetchUrl(url) {
 }
 
 class SitesController {
-    constructor($scope, $uibModal, $firebaseArray, FirebaseFactory) {
+    constructor($scope, $stateParams, $uibModal, $firebaseArray, FirebaseFactory) {
         this.scope = $scope;
         var vm = this;
         FirebaseFactory.initialize();
         $scope.sites = $firebaseArray(firebase.database().ref().child('sites'));
         $scope.sites.$watch(function(e) {
             var key = e.key;
-
             vm.sites = $scope.sites;
+            if ($stateParams.site === key) {
+                vm.open(vm.sites.$getRecord($stateParams.site));
+            }
         });
         this.name = 'sites';
         this.$uibModal = $uibModal;
+
     }
     fetchLogo(site) {
         var url = '';
@@ -36,8 +39,6 @@ class SitesController {
         }
         if (url) {
             fetchUrl(url).then(function(value) {
-                // site.logoUrl = value;
-                // vm.scope.$apply();
                 return value;
             });
         } else {
@@ -156,5 +157,5 @@ class SitesController {
         });
     }
 }
-SitesController.$inject = ['$scope', '$uibModal', '$firebaseArray', 'FirebaseFactory'];
+SitesController.$inject = ['$scope', '$stateParams', '$uibModal', '$firebaseArray', 'FirebaseFactory'];
 export default SitesController;

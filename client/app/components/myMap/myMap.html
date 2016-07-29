@@ -1,9 +1,9 @@
 <div class="mapview" map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{$ctrl.googleMapsUrl}}">
     <ng-map class="mapdiv" id="siteMap" center="[56.0732267, 15.6205958]" zoom="11">
-        <custom-marker ng-repeat="site in $ctrl.sites | filter:{lat:'!!'} track by $index " id="custom-marker-{{$index}}" on-click="$ctrl.showSite(site, 'custom-marker-{{$index}}')" position="[{{site.lat}},{{site.long}}]"><div class="site-marker">{{site.title}}</div></custom-marker>
+        <marker ng-repeat="site in $ctrl.sites | filter:{lat:'!!'} track by $index " id="custom-marker-{{$index}}" on-click="$ctrl.showSite(site, 'custom-marker-{{$index}}')" position="[{{site.lat}},{{site.long}}]"></marker>
         <info-window id="popup">
             <div ng-non-bindable="">
-				{{$ctrl.site.title}}
+				<a class='sitelink' ui-sref="^.sites({site:$ctrl.site.$id})">{{$ctrl.site.title}}</a>
             </div>
         </info-window>
     </ng-map>

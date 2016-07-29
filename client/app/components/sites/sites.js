@@ -26,7 +26,7 @@ let sitesModule = angular.module('sites', [
 
   $stateProvider
     .state('sites', {
-      url: '/sites',
+      url: '/sites?site',
       component: 'sites'
     });
 })
