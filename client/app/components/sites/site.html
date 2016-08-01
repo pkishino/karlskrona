@@ -5,7 +5,7 @@
     <h4><i>Dykinfo:</i> {{$ctrl.site.text1}}</h4>
     <br/>
     <i>Siteinfo:</i> {{$ctrl.site.text2}}
-    <div ng-if='$ctrl.sitemap' style="text-align:center">
+    <!-- <div ng-if='$ctrl.sitemap' style="text-align:center">
         <img class="img-thumbnail" ng-src="{{ ::$ctrl.sitemap }}" width="150px" height="100px" alt="Dive map" title="Dive map" ng-click=$ctrl.showfull() />
     </div>
     <div ng-if='!$ctrl.sitemap && !$ctrl.site.map'>
@@ -13,6 +13,17 @@
     </div>
     <div ng-if='!$ctrl.sitemap && $ctrl.site.map'>
         Dive map loading...
+    </div> -->
+    <div style="height: 305px; max-width:350px; text-align:center;">
+        <div uib-carousel active="0" interval="0">
+            <div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
+                <img class="test" ng-src="{{slide.url}}" ng-click="$ctrl.view(slide)">
+                <div class="carousel-caption">
+                    <h4>Slide {{slide.id}}</h4>
+                    <p>{{slide.title}}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div ng-if="!$ctrl.new" class="modal-footer">

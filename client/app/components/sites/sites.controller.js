@@ -48,10 +48,10 @@ class SitesController {
     }
     open(site) {
         var modalinstance = this.$uibModal.open({
-            template: '<site site="$ctrl.site" close="$ctrl.close()" sitemap="$ctrl.sitemap" showfull="$ctrl.showfull()"></site>',
+            template: '<site site="$ctrl.site" close="$close()"></site>',
             controllerAs: '$ctrl',
-            controller: ['$scope', '$uibModalInstance', 'Lightbox',
-                function($scope, $uibModalInstance, Lightbox) {
+            controller: ['$scope',
+                function($scope) {
                     this.site = site;
                     var vm = this;
                     if (site.map) {
@@ -60,14 +60,22 @@ class SitesController {
                             $scope.$apply();
                         });
                     }
-                    this.close = $uibModalInstance.close;
-                    this.showfull = function() {
-                        var image = {
-                            'url': vm.sitemap,
-                            'caption': this.site.title
-                        };
-                        Lightbox.openModal([image], 0);
-                    };
+                    // this.showfull = function() {
+                    //     var image = {
+                    //         'url': vm.sitemap,
+                    //         'caption': this.site.title
+                    //     };
+                    //     Lightbox.openModal([image], 0);
+                    // };
+                    // this.slides = [{
+                    //     url: 'https://firebasestorage.googleapis.com/v0/b/dive-karlskrona.appspot.com/o/divemaps%2Fklykach.jpg?alt=media&token=02cdbddc-b191-4939-b479-871195d509fb',
+                    //     title: 'Dive 1',
+                    //     id: 0
+                    // }, {
+                    //     url: 'https://firebasestorage.googleapis.com/v0/b/dive-karlskrona.appspot.com/o/divemaps%2Fekenabben.jpg?alt=media&token=4bcb1ad3-e9e1-430f-b843-ccb863c615d6',
+                    //     title: 'Dive 2',
+                    //     id: 1
+                    // }];
                 }
             ]
         });

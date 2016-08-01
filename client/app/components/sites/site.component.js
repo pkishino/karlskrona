@@ -1,4 +1,5 @@
 import template from './site.html';
+import controller from './site.controller'
 
 let siteComponent = {
     restrict: 'E',
@@ -10,10 +11,10 @@ let siteComponent = {
         uploadtype: '<',
         close: '&',
         save: '&',
-        dismiss: '&',
-        showfull: '&'
+        dismiss: '&'
     },
-    template
+    template,
+    controller
 };
 
 export default siteComponent;

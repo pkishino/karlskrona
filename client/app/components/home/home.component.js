@@ -4,7 +4,8 @@ import './home.styl';
 
 let homeComponent = {
   restrict: 'E',
-  bindings: {},
+  bindings: {
+  },
   template,
   controller
 };

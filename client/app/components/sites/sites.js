@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
+import animate from 'angular-animate';
 import lightbox from 'angular-bootstrap-lightbox';
 import angularfire from 'angularfire';
 import fileupload from 'ng-file-upload';
@@ -13,6 +14,7 @@ import siteComponent from './site.component';
 let sitesModule = angular.module('sites', [
   uiRouter,
   uiBootstrap,
+  animate,
   lightbox,
   angularfire,
   fileupload,
