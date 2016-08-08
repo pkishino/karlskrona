@@ -76,6 +76,6 @@ module.exports = function(config) {
         browsers: ['Chrome'],
 
         // if true, Karma runs tests once and exits
-        singleRun: true
+        singleRun: false
     });
 };

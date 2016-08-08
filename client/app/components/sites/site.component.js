@@ -1,5 +1,6 @@
 import template from './site.html';
-import controller from './site.controller'
+import controller from './site.controller';
+import './site.styl';
 
 let siteComponent = {
     restrict: 'E',
@@ -10,8 +11,7 @@ let siteComponent = {
         uploadvalue: '<',
         uploadtype: '<',
         close: '&',
-        save: '&',
-        dismiss: '&'
+        save: '&'
     },
     template,
     controller

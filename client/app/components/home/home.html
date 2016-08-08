@@ -1,16 +1,5 @@
 <main>
     <div>
         <h1>Found in {{ $ctrl.name }}.html</h1>
-        <div style="height: 305px; max-width:350px; text-align:center;">
-            <div uib-carousel active="0" interval="0">
-                <div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
-                    <img class="test" ng-src="{{slide.url}}" ng-click="$ctrl.showfull(slide)">
-                    <div class="carousel-caption">
-                        <h4>Slide {{slide.id}}</h4>
-                        <p>{{slide.title}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </main>

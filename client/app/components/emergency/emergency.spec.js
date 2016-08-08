@@ -47,7 +47,7 @@ describe('Emergency', () => {
     });
 
     it('has name in template', () => {
-      expect(template.find('h1').html()).to.eq('emergency');
+      expect(template.find('h1').html()).to.contain('emergencies');
     });
 
   });

@@ -50,42 +50,19 @@ class SitesController {
         var modalinstance = this.$uibModal.open({
             template: '<site site="$ctrl.site" close="$close()"></site>',
             controllerAs: '$ctrl',
-            controller: ['$scope',
-                function($scope) {
+            controller: [
+                function() {
                     this.site = site;
-                    var vm = this;
-                    if (site.map) {
-                        fetchUrl('divemaps/' + site.map).then(function(value) {
-                            vm.sitemap = value;
-                            $scope.$apply();
-                        });
-                    }
-                    // this.showfull = function() {
-                    //     var image = {
-                    //         'url': vm.sitemap,
-                    //         'caption': this.site.title
-                    //     };
-                    //     Lightbox.openModal([image], 0);
-                    // };
-                    // this.slides = [{
-                    //     url: 'https://firebasestorage.googleapis.com/v0/b/dive-karlskrona.appspot.com/o/divemaps%2Fklykach.jpg?alt=media&token=02cdbddc-b191-4939-b479-871195d509fb',
-                    //     title: 'Dive 1',
-                    //     id: 0
-                    // }, {
-                    //     url: 'https://firebasestorage.googleapis.com/v0/b/dive-karlskrona.appspot.com/o/divemaps%2Fekenabben.jpg?alt=media&token=4bcb1ad3-e9e1-430f-b843-ccb863c615d6',
-                    //     title: 'Dive 2',
-                    //     id: 1
-                    // }];
                 }
             ]
         });
     }
     newSite() {
         var modalinstance = this.$uibModal.open({
-            template: '<site site="$ctrl.site" save="$ctrl.save()" dismiss="$ctrl.dismiss()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
+            template: '<site site="$ctrl.site" save="$ctrl.save()" close="$close()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
             controllerAs: '$ctrl',
-            controller: ['$scope', '$uibModalInstance', 'Lightbox', '$firebaseArray',
-                function($scope, $uibModalInstance, Lightbox, $firebaseArray) {
+            controller: ['$uibModalInstance',
+                function($uibModalInstance) {
                     this.site = {
                         "title": "",
                         "text1": "",
@@ -94,69 +71,8 @@ class SitesController {
                         "long": "",
                         "image": null
                     };
-                    this.scope = $scope;
                     this.new = true;
                     this.$uibModalInstance = $uibModalInstance;
-                    var vm = this;
-                    this.save = function() {
-                        this.upload();
-                    };
-                    this.dismiss = $uibModalInstance.dismiss;
-                    this.upload = function() {
-                        var newSite = {
-                            "title": this.site.title,
-                            "text1": this.site.text1,
-                            "text2": this.site.text2,
-                            "lat": this.site.lat,
-                            "long": this.site.long
-                        };
-                        var databaseRef = firebase.database();
-                        var siteKey = databaseRef.ref('sites').push(newSite).key;
-                        if (this.site.image) {
-                            var storageRef = firebase.storage().ref();
-                            var metadata = { contentType: this.site.image.type };
-                            var name = this.site.title + "." + this.site.image.name.slice((this.site.image.name.lastIndexOf(".") - 1 >>> 0) + 2);
-                            var uploadTask = storageRef.child('divemaps/' + name).put(this.site.image, metadata);
-                            this.uploadtype = 'info';
-                            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                                function(snapshot) {
-                                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                    vm.uploadvalue = Math.floor(progress);
-                                    vm.scope.$apply();
-                                    switch (snapshot.state) {
-                                        case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                            console.log('Upload is paused');
-                                            break;
-                                        case firebase.storage.TaskState.RUNNING: // or 'running'
-                                            console.log('Upload is running');
-                                            break;
-                                    }
-                                },
-                                function(error) {
-                                    switch (error.code) {
-                                        case 'storage/unauthorized':
-                                            // User doesn't have permission to access the object
-                                            break;
-
-                                        case 'storage/canceled':
-                                            // User canceled the upload
-                                            break;
-
-                                        case 'storage/unknown':
-                                            // Unknown error occurred, inspect error.serverResponse
-                                            break;
-                                    }
-                                },
-                                function() {
-                                    vm.uploadtype = 'success';
-                                    newSite.map = name;
-                                    databaseRef.ref('sites/' + siteKey).update({ map: name });
-                                    vm.$uibModalInstance.close();
-                                });
-                        } else {
-                            this.$uibModalInstance.close();
-                        }
-                    };
                 }
             ]
         });
