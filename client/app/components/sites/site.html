@@ -2,9 +2,9 @@
     <h3 class="modal-title">{{$ctrl.site.title}}</h3>
 </div>
 <div ng-if="!$ctrl.new" class="modal-body">
-    <h4><i>Dykinfo:</i> {{$ctrl.site.text1}}</h4>
-    <br/>
-    <i>Siteinfo:</i> {{$ctrl.site.text2}}
+    <p><h4><i>Dykinfo:</i> {{$ctrl.site.text1}}</h4></p>
+    <p><i>Siteinfo:</i> {{$ctrl.site.text2}}</p>
+    <p>
     <div ng-if='$ctrl.slides === null'>
         No images available
     </div>
@@ -22,6 +22,7 @@
             </div>
         </div>
     </div>
+    </p>
 </div>
 <div ng-if="!$ctrl.new" class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">Close</button>

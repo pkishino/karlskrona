@@ -1,18 +1,3 @@
-function fetchUrl(url) {
-    var storage = firebase.storage();
-    var storageRef = storage.ref();
-    return storageRef.child(url).getDownloadURL().then(function(urlLong) {
-        return urlLong;
-    }).catch(function(error) {
-        console.log(error);
-        throw {
-            message: error.code,
-            status: error.status,
-            data: error
-        };
-    });
-}
-
 class SitesController {
     constructor($scope, $stateParams, $uibModal, $firebaseArray, FirebaseFactory) {
         this.scope = $scope;
