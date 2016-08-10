@@ -1,16 +1,18 @@
 <nav class="navbar navbar-default navbar-dive navbar-fixed-top" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-init="navCollapsed=true" ng-click='navCollapsed=!navCollapsed'>
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href='#'>{{$ctrl.name}}</a>
-        </div>      
-        <div class='navbar-collapse collapse' ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
-            <ul class="nav navbar-nav">
-                <tabs data="$ctrl.tabData" type="pills" template-url="navtab-template.html"/>
-            </ul>
-        </div>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed=true" ng-click='navCollapsed=!navCollapsed'>
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href='#'>{{$ctrl.name}}</a>
+    </div>
+    <div class='navbar-collapse collapse' ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+        <ul class="nav navbar-nav">
+            <tabs data="$ctrl.tabData" type="pills" template-url="navtab-template.html" />
+        </ul>
+        <button class="btn btn-success login-button btn-lg" ng-click="$ctrl.login()" ng-hide="$ctrl.user"> Sign in</button>
+        <div ng-if="$ctrl.user">Welcome {{$ctrl.user.uid}}</div>
+    </div>
 </nav>
