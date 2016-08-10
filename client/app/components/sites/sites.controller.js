@@ -1,8 +1,9 @@
 class SitesController {
-    constructor($scope, $stateParams, $uibModal, $firebaseArray, FirebaseFactory) {
+    constructor($scope, $stateParams, $uibModal, $firebaseArray, FirebaseFactory, $firebaseAuth) {
         this.scope = $scope;
         var vm = this;
         FirebaseFactory.initialize();
+        this.auth = $firebaseAuth();
         $scope.sites = $firebaseArray(firebase.database().ref().child('sites'));
         $scope.sites.$watch(function(e) {
             var key = e.key;
@@ -66,5 +67,5 @@ class SitesController {
         });
     }
 }
-SitesController.$inject = ['$scope', '$stateParams', '$uibModal', '$firebaseArray', 'FirebaseFactory'];
+SitesController.$inject = ['$scope', '$stateParams', '$uibModal', '$firebaseArray', 'FirebaseFactory', '$firebaseAuth'];
 export default SitesController;

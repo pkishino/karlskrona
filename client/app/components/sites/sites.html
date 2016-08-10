@@ -6,6 +6,6 @@
         <p>{{ site.text1 }}</p>
     </div>
     <div>
-     <button class="btn btn-primary" type="button" ng-click="$ctrl.newSite()">New site</button>
+     <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-primary" type="button" ng-click="$ctrl.newSite()">New site</button>
     </div>
 </main>

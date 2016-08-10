@@ -40,17 +40,13 @@ class NavbarController {
     login() {
         var vm = this;
         var modalInstance = this.modal.open({
-            template: '<login-component modalInstance="$ctrl.modalInstance" auth="$ctrl.auth" close="$close()"></login-component>',
+            template: '<login-component auth="$ctrl.auth" close="$close()"></login-component>',
             controllerAs: '$ctrl',
             controller: [
                 function() {
-                    this.modalInstance = modalInstance;
                     this.auth = vm.auth;
                 }
             ]
-        });
-        modalInstance.result.then(function() {}, function() {
-            vm.user = vm.auth.$getAuth();
         });
     }
 }
