@@ -16,22 +16,6 @@ class SitesController {
         this.$uibModal = $uibModal;
 
     }
-    fetchLogo(site) {
-        var url = '';
-        if (!site.logo) {
-            url = 'assets/flagga.png';
-        } else if (site.logo.indexOf('http') == -1) {
-            url = 'assets/' + site.logo;
-        }
-        if (url) {
-            fetchUrl(url).then(function(value) {
-                return value;
-            });
-        } else {
-            url = site.logo;
-        }
-        return url;
-    }
     open(site) {
         var modalinstance = this.$uibModal.open({
             template: '<site site="$ctrl.site" close="$close()" save="$ctrl.save()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue"></site>',
