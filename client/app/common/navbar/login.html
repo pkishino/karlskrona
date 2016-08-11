@@ -12,6 +12,9 @@
             <div ng-message="required">This field is required</div>
         </div>
     </form>
+    <div ng-if="$ctrl.error">
+        <b><element style="color: red">Login Error:{{$ctrl.error}}</element>
+    </div>
 </div>
 <div class="modal-footer">
     <button ng-disabled="!$ctrl.email || !$ctrl.password" class="btn btn-primary" ng-click="$ctrl.authenticate()">Login</button>

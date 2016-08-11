@@ -8,11 +8,12 @@ class LoginComponentController {
     authenticate() {
         var vm = this;
         this.auth.$signInWithEmailAndPassword(this.email, this.password).then(function(firebaseUser) {
-            console.log("Signed in as:", firebaseUser.uid);
+            // console.log("Signed in as:", firebaseUser.uid);
             vm.close();
 
         }).catch(function(error) {
-            console.error("Authentication failed:", error);
+            vm.error = error.message;
+            // console.error("Authentication failed:", error);
         });
     }
 }
