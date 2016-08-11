@@ -5,7 +5,6 @@ import './login.styl';
 let loginComponent = {
     restrict: 'E',
     bindings: {
-    	modalInstance: '=',
     	auth: '=',
         close: '&'
     },

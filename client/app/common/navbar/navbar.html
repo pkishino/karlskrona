@@ -14,6 +14,5 @@
         </ul>
         <button class="btn btn-success login-button btn-lg" ng-click="$ctrl.login()" ng-hide="$ctrl.auth.$getAuth()"> Sign in</button>
         <button class="btn btn-danger login-button btn-lg" ng-click="$ctrl.auth.$signOut()" ng-hide="!$ctrl.auth.$getAuth()"> Sign out</button>
-        <span ng-if="$ctrl.auth.$getAuth()">Welcome {{$ctrl.auth.$getAuth().email}}</span>
     </div>
 </nav>

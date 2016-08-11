@@ -1,11 +1,14 @@
 <main class='main'>
     <div class='site' ng-repeat="site in $ctrl.sites" ng-click="$ctrl.open(site)">
+    	<button ng-if="$ctrl.auth.$getAuth()" class="btn btn-danger btn-xs site-delete" type="button" ng-click="$ctrl.sites.$remove(site)">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
         <img ng-if='site.logoUrl' class="site-logo" ng-src="{{::site.logoUrl}}" />
-        <h3 class="site-h3"> {{ site.title }}
-  		</h3>
+        <h3 class="site-h3"> {{ site.title }}</h3>
+        
         <p>{{ site.text1 }}</p>
     </div>
     <div>
-     <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-primary" type="button" ng-click="$ctrl.newSite()">New site</button>
+        <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-primary" type="button" ng-click="$ctrl.newSite()">New site</button>
     </div>
 </main>
