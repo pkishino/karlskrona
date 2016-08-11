@@ -34,7 +34,7 @@ class SitesController {
     }
     open(site) {
         var modalinstance = this.$uibModal.open({
-            template: '<site site="$ctrl.site" close="$close()"></site>',
+            template: '<site site="$ctrl.site" close="$close()" save="$ctrl.save()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue"></site>',
             controllerAs: '$ctrl',
             controller: [
                 function() {
@@ -47,8 +47,8 @@ class SitesController {
         var modalinstance = this.$uibModal.open({
             template: '<site site="$ctrl.site" save="$ctrl.save()" close="$close()" uploadtype="$ctrl.uploadtype" uploadvalue="$ctrl.uploadvalue" new="$ctrl.new"></site>',
             controllerAs: '$ctrl',
-            controller: ['$uibModalInstance',
-                function($uibModalInstance) {
+            controller: [
+                function() {
                     this.site = {
                         "title": "",
                         "text1": "",
@@ -58,7 +58,6 @@ class SitesController {
                         "image": null
                     };
                     this.new = true;
-                    this.$uibModalInstance = $uibModalInstance;
                 }
             ]
         });

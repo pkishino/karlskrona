@@ -2,25 +2,38 @@
     <h3 class="modal-title">{{$ctrl.site.title}}</h3>
 </div>
 <div ng-if="!$ctrl.new" class="modal-body">
-    <p><h4><i>Dykinfo:</i> {{$ctrl.site.text1}}</h4></p>
-    <p><i>Siteinfo:</i> {{$ctrl.site.text2}}</p>
     <p>
-    <div ng-if='$ctrl.slides === null'>
-        No images available
-    </div>
-    <div ng-if="$ctrl.slides.length === 0">
-        Media loading
-    </div>
-    <div ng-if="$ctrl.slides.length >0" class="modal-carousel">
-        <div uib-carousel active="0" interval="0">
-            <div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
-                <img ng-src="{{slide.url}}" ng-click="$ctrl.view(slide)">
-                <div class="carousel-caption">
-                    <p>{{slide.title}}</p>
+        <h4><i>Dykinfo:</i> {{$ctrl.site.text1}}</h4>
+    </p>
+    <p>
+        <i>Siteinfo:</i> {{$ctrl.site.text2}}
+    </p>
+    <p>
+        <div ng-if='$ctrl.slides === null'>
+            No images available
+        </div>
+        <div ng-if="$ctrl.slides.length === 0">
+            Media loading
+        </div>
+        <div ng-if="$ctrl.slides.length >0" class="modal-carousel">
+            <div uib-carousel active="0" interval="0">
+                <div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
+                    <img ng-src="{{slide.url}}" ng-click="$ctrl.view(slide)">
+                    <div class="carousel-caption">
+                        <p>{{slide.title}}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- <div ng-if="!$ctrl.slides.length >0">
+    <button class="btn btn-primary" type="button" ngf-select ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.site.image">Select dive map</button>
+    <br/>
+    <img ngf-thumbnail="$ctrl.site.image" class="img-thumnail" width="150px" height="100px" alt="Dive map" title="Dive map" />
+    <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue">
+        <b>{{$ctrl.uploadvalue}}%</b>
+    </uib-progressbar>
+</div>
+ -->
     </p>
 </div>
 <div ng-if="!$ctrl.new" class="modal-footer">

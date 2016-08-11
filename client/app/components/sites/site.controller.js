@@ -92,10 +92,10 @@ class SiteController {
                     vm.uploadtype = 'success';
                     newSite.map = name;
                     databaseRef.ref('sites/' + siteKey).update({ map: name });
-                    vm.$uibModalInstance.close();
+                    vm.close();
                 });
         } else {
-            this.$uibModalInstance.close();
+            this.close();
         }
     }
 }
