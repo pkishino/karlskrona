@@ -49,7 +49,8 @@ class SiteController {
             "text1": this.site.text1,
             "text2": this.site.text2,
             "lat": this.site.lat,
-            "long": this.site.long
+            "long": this.site.long,
+            "type": this.site.type
         };
         var databaseRef = firebase.database();
         var siteKey = databaseRef.ref('sites').push(newSite).key;

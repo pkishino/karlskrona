@@ -1,13 +1,28 @@
 <main class='main'>
-    <div class='site' ng-repeat="site in $ctrl.sites | filter:{type:'dive'}" ng-click="$ctrl.open(site)">
-    	<button ng-if="$ctrl.auth.$getAuth()" class="btn btn-danger btn-xs site-delete" type="button" ng-click="$ctrl.sites.$remove(site)">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-        </button>
-        <img ng-if='site.type.indexOf("boat") > -1' class="site-logo" src="https://firebasestorage.googleapis.com/v0/b/dive-karlskrona.appspot.com/o/assets%2Fflagga.png?alt=media&token=5f750e38-bfcd-4b5e-979f-8520f676c1e8" />
-        <h3 class="site-h3"> {{ site.title }}</h3>
-        <p>{{ site.text1 }}</p>
-    </div>
     <div>
         <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-primary" type="button" ng-click="$ctrl.newSite()">New site</button>
+    </div>
+    <div class="row">
+    <h1>Dive sites</h1>
+        <div class='col-md-2 site' ng-repeat="site in $ctrl.sites | filter:{type:'dive'}" ng-click="$ctrl.open(site)">
+            <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-danger btn-xs site-delete" type="button" ng-click="$ctrl.sites.$remove(site)">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+            <span ng-if='site.type.indexOf("land") > -1' class="site-logo glyphicon glyphicon-tree-conifer"></span>
+            <span ng-if='site.type.indexOf("boat") > -1' class="site-logo glyphicon glyphicon-tint"></span>
+            <h3 class="site-h3"> {{ site.title }}</h3>
+            <p>{{ site.text1 }}</p>
+        </div>
+    </div>
+    <div class="row">
+    <h1>Other sites</h1>
+        <div class='col-md-2 site' ng-repeat="site in $ctrl.sites | filter:{type:'other'}" ng-click="$ctrl.open(site)">
+            <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-danger btn-xs site-delete" type="button" ng-click="$ctrl.sites.$remove(site)">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+            <span class="site-logo glyphicon glyphicon-exclamation-sign"></span>
+            <h3 class="site-h3"> {{ site.title }}</h3>
+            <p>{{ site.text1 }}</p>
+        </div>
     </div>
 </main>

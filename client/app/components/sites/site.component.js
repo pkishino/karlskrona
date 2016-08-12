@@ -6,12 +6,8 @@ let siteComponent = {
     restrict: 'E',
     bindings: {
         site: '=',
-        sitemap: '<',
         new: '<',
-        uploadvalue: '<',
-        uploadtype: '<',
-        close: '&',
-        save: '&'
+        close: '&'
     },
     template,
     controller
