@@ -3,11 +3,13 @@
         <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-primary" type="button" ng-click="$ctrl.newSite()">New site</button>
     </div>
     <div class="row">
+        <h3>Access legend:</h3>
+            <h4>
+                <span class="glyphicon glyphicon-tree-conifer">Land</span>
+                <span class="glyphicon glyphicon-tint">Boat</span>
+                <span class="glyphicon glyphicon-exclamation-sign">Other</span>
+            </h4>
         <h1>Dive sites</h1>
-        <h3>Access legend: 
-            <span class="site-logo glyphicon glyphicon-tree-conifer">Land</span>
-            <span class="site-logo glyphicon glyphicon-tint">Boat</span>
-            </h3>
         <div class='col-md-2 site' ng-repeat="site in $ctrl.sites | filter:{type:'dive'}" ng-click="$ctrl.open(site)">
             <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-danger btn-xs site-delete" type="button" ng-click="$ctrl.sites.$remove(site)">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -19,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-    <h1>Other sites</h1>
+        <h1>Other sites</h1>
         <div class='col-md-2 site' ng-repeat="site in $ctrl.sites | filter:{type:'other'}" ng-click="$ctrl.open(site)">
             <button ng-if="$ctrl.auth.$getAuth()" class="btn btn-danger btn-xs site-delete" type="button" ng-click="$ctrl.sites.$remove(site)">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
