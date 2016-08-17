@@ -32,6 +32,19 @@ class SiteController {
         } else {
             this.slides = null;
         }
+        if (this.site.media) {
+            for (var i = 0; i < this.site.media.length; i++) {
+                var media = this.site.media[i];
+                fetchUrl('media/' + media.value).then(function(value) {
+                    vm.slides.push({
+                        url: value,
+                        title: media.key,
+                        id: vm.slides.length
+                    });
+                    $scope.$apply();
+                });
+            }
+        }
     }
     view(slide) {
         var image = {
