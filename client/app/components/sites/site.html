@@ -15,25 +15,25 @@
         <div ng-if="$ctrl.slides.length === 0">
             Media loading
         </div>
-        <div ng-if="$ctrl.slides.length >0" class="modal-carousel">
+        <div ng-if="$ctrl.slides.length > 0" class="modal-carousel">
             <div uib-carousel active="0" interval="0">
                 <div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
                     <img ng-src="{{slide.url}}" ng-click="$ctrl.view(slide)">
                     <div class="carousel-caption">
-                        <p>{{slide.title}}</p>
+                        <p>{{slide.label}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div ng-if="!$ctrl.slides.length >0">
-    <button class="btn btn-primary" type="button" ngf-select ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.site.image">Select dive map</button>
-    <br/>
-    <img ngf-thumbnail="$ctrl.site.image" class="img-thumnail" width="150px" height="100px" alt="Dive map" title="Dive map" />
-    <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue">
-        <b>{{$ctrl.uploadvalue}}%</b>
-    </uib-progressbar>
-</div>
- -->
+        <div ng-if="$ctrl.auth.$getAuth()">
+            <button class="btn btn-primary" type="button" ngf-select="$ctrl.select($files)" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.images" ngf-multiple="true">Add images</button>
+            <div ng-repeat="image in $ctrl.site.images track by $index">
+                <img ngf-thumbnail="::image" class="img-thumnail" width="150px" height="100px" />
+                <input ng-if='!$ctrl.uploadvalue' type="text" ng-model="$ctrl.site.images[$index].label" placeholder="Short description" />
+            </div>
+            <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
+            <button ng-if="$ctrl.images.length>0" class="btn btn-primary" type="button" ng-click="$ctrl.addImages()">Save</button>
+        </div>
     </p>
 </div>
 <div ng-if="!$ctrl.new" class="modal-footer">
@@ -73,11 +73,15 @@
         </label>
         <br/>
     </p>
-    <button class="btn btn-primary" type="button" ngf-select ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.site.image">Select dive map</button>
-    <img ngf-thumbnail="$ctrl.site.image" class="img-thumnail" width="150px" height="100px" alt="Dive map" title="Dive map" />
+    <button class="btn btn-primary" type="button" ngf-select="$ctrl.select($files)" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.images" ngf-multiple="true">Select images</button>
+    <div ng-repeat="image in $ctrl.site.images track by $index">
+        <img ngf-thumbnail="::image" class="img-thumnail" width="150px" height="100px" />
+        <input ng-if='!$ctrl.uploadvalue' type="text" ng-model="$ctrl.site.images[$index].label" placeholder="Short description" />
+    </div>
     <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
 </form>
 <div ng-if="$ctrl.new" class="modal-footer">
-    <button ng-disabled="!$ctrl.site.title" class="btn btn-primary" type="button" ng-click="$ctrl.save()">Save</button>
-    <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">Cancel</button>
+    <button ng-disabled="!$ctrl.site.title || $ctrl.uploadvalue>0" class="btn btn-primary" type="button" ng-click="$ctrl.save()">Save</button>
+    <button ng-if="$ctrl.uploadtype === 'success'" class="btn btn-primary" type="button" ng-click="$ctrl.close()">Close</button>
+    <button ng-if="!$ctrl.uploadvalue" class="btn btn-primary" type="button" ng-click="$ctrl.close()">Cancel</button>
 </div>

@@ -39,7 +39,6 @@ class SitesController {
                         "text2": "",
                         "lat": "",
                         "long": "",
-                        "image": null,
                         "type": ""
                     };
                     this.new = true;
