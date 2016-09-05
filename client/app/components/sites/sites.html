@@ -16,6 +16,8 @@
             </button>
             <span ng-if='site.type.indexOf("land") > -1' class="site-logo glyphicon glyphicon-tree-conifer"></span>
             <span ng-if='site.type.indexOf("boat") > -1' class="site-logo glyphicon glyphicon-tint"></span>
+            <span ng-if='site.depth.average > 18' class="site-logo">AOW</span>
+            <span ng-if='site.depth.average <= 18' class="site-logo">OW</span>
             <h3 class="site-h3"> {{ site.title }}</h3>
             <p>{{ site.text1 }}</p>
         </div>
