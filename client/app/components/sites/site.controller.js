@@ -5,7 +5,7 @@ function fetchUrl(url, label) {
         return {
             url: urlLong,
             label: label
-        }
+        };
     }).catch(function(error) {
         console.log(error);
         throw {
@@ -17,28 +17,33 @@ function fetchUrl(url, label) {
 }
 
 class SiteController {
-    constructor($scope, Lightbox, $firebaseArray, $firebaseAuth) {
+    constructor($scope, Lightbox, $firebaseObject, $firebaseAuth) {
+
+        this.site = new $firebaseObject(firebase.database().ref('sites/' + this.site.$id));
         this.scope = $scope;
         this.lightbox = Lightbox;
         this.auth = $firebaseAuth();
         this.name = 'site';
         this.slides = null;
         this.uploadvalue = 0;
-        this.loadMedia();
-    }
-    loadMedia() {
         var vm = this;
-        if (this.site.media) {
-            this.slides = [];
-            Object.keys(this.site.media).forEach(function(key) {
-                var media = this.site.media[key];
-                fetchUrl('media/' + media.file, media.label).then(function(value) {
-                    value.id = vm.slides.length;
-                    vm.slides.push(value);
-                    vm.scope.$apply();
+        this.site.$loaded().then(function() {
+            if (vm.site.media) {
+                vm.slides = [];
+                Object.keys(vm.site.media).forEach(function(key) {
+                    vm.loadMedia(key);
                 });
-            });
-        }
+            }
+        });
+    }
+    loadMedia(key) {
+        var vm = this;
+        var media = vm.site.media[key];
+        fetchUrl('media/' + media.file, media.label).then(function(value) {
+            value.id = vm.slides.length;
+            vm.slides.push(value);
+            vm.scope.$apply();
+        });
     }
     view(slide) {
         var image = {
@@ -107,9 +112,13 @@ class SiteController {
                     function() {
                         vm.uploadtype = 'success';
                         var databaseRef = firebase.database();
-                        databaseRef.ref('sites/' + siteKey + '/media').push({
+                        var mediaKey = databaseRef.ref('sites/' + siteKey + '/media').push().key;
+                        vm.site.media[mediaKey] = ({
                             file: name,
                             label: image.label === undefined ? "" : image.label
+                        });
+                        vm.site.$save().then(function() {
+                            vm.loadMedia(mediaKey);
                         });
                         vm.scope.$apply();
                     });
@@ -117,5 +126,5 @@ class SiteController {
         }
     }
 }
-SiteController.$inject = ['$scope', 'Lightbox', '$firebaseArray', '$firebaseAuth'];
+SiteController.$inject = ['$scope', 'Lightbox', '$firebaseObject', '$firebaseAuth'];
 export default SiteController;
