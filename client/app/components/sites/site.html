@@ -3,10 +3,20 @@
 </div>
 <div ng-if="!$ctrl.new" class="modal-body">
     <p>
-        <h4><i>Dykinfo:</i> {{$ctrl.site.text1}}</h4>
+        <h4><i>Dive info:</i> </h4>
+        <ul ng-if="$ctrl.site.depth">
+            <li>Average : {{$ctrl.site.depth.average}}
+            </li>
+            <li>Max : {{$ctrl.site.depth.max}}
+            </li>
+        </ul>
     </p>
     <p>
-        <i>Siteinfo:</i> {{$ctrl.site.text2}}
+        <i>Siteinfo:</i>
+        <ul>
+            <li ng-if="$ctrl.site.text1">{{$ctrl.site.text1}}</li>
+            <li ng-if="$ctrl.site.text2">{{$ctrl.site.text2}}</li>
+        </ul>
     </p>
     <p>
         <div ng-if='$ctrl.slides === null'>
@@ -47,15 +57,25 @@
 </form>
 <form ng-if="$ctrl.new" class="modal-body" name="body">
     <p>
-        <input type="text" ng-model="$ctrl.site.text1" placeholder="Short description, visible on sites page" />
+        <input type="text" ng-model="$ctrl.site.text1" placeholder="Short description" />
     </p>
     <p>
-        <textarea type="text" name="userMessage" ng-model="$ctrl.site.text2" ng-maxlength="1000" placeholder="Longer description, visible on the site page">
+        <textarea type="text" name="userMessage" ng-model="$ctrl.site.text2" ng-maxlength="1000" placeholder="Longer description">
         </textarea>
     </p>
     <p>
+      GPS Coordinates (Decimal)
         <input type="number" ng-model="$ctrl.site.lat" placeholder="GPS Latitude (e.g 56.1231)" />
         <input type="number" ng-model="$ctrl.site.long" placeholder="GPD Longitude(e.g. 15.1231)" />
+    </p>
+    <p>
+      Depth(meters)
+        <input type="number" ng-model="$ctrl.site.average" placeholder="Average depth" />
+        <input type="number" ng-model="$ctrl.site.max" placeholder="Max depth" />
+    </p>
+    <p>
+      What to see
+        <input type="text" ng-model="$ctrl.site.sights" placeholder="Wrecks, fish, nature" />
     </p>
     <p>
         Site type:

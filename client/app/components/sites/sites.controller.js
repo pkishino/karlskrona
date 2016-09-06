@@ -39,7 +39,10 @@ class SitesController {
                         "text2": "",
                         "lat": "",
                         "long": "",
-                        "type": ""
+                        "type": "",
+                        "average":"",
+                        "max":"",
+                        "sights":""
                     };
                     this.new = true;
                 }

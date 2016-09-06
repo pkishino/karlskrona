@@ -19,7 +19,8 @@
             <span ng-if='site.depth.average > 18' class="site-logo">AOW</span>
             <span ng-if='site.depth.average <= 18' class="site-logo">OW</span>
             <h3 class="site-h3"> {{ site.title }}</h3>
-            <p>{{ site.text1 }}</p>
+            <p>Average depth: {{ site.depth.average }}m</p>
+            <p>What to see: {{ site.sights }}</p>
         </div>
     </div>
     <div class="row">
