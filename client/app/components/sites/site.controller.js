@@ -24,18 +24,20 @@ class SiteController {
         this.name = 'site';
         this.slides = null;
         this.uploadvalue = 0;
+        this.loadMedia();
+    }
+    loadMedia() {
         var vm = this;
         if (this.site.media) {
             this.slides = [];
-            for (var i = 0; i < Object.keys(this.site.media).length; i++) {
-                var key = Object.keys(this.site.media)[i];
+            Object.keys(this.site.media).forEach(function(key) {
                 var media = this.site.media[key];
                 fetchUrl('media/' + media.file, media.label).then(function(value) {
                     value.id = vm.slides.length;
                     vm.slides.push(value);
-                    $scope.$apply();
+                    vm.scope.$apply();
                 });
-            }
+            });
         }
     }
     view(slide) {
@@ -68,11 +70,10 @@ class SiteController {
         var vm = this;
         if (this.site.images) {
             var storageRef = firebase.storage().ref();
-            for (var i = 0; i < this.site.images.length; i++) {
-                var image = this.site.images[i];
+            this.site.images.forEach(function(image) {
                 var metadata = { contentType: image.type };
                 var name = siteKey + image.name;
-                this.uploadtype = 'info';
+                vm.uploadtype = 'info';
                 var uploadTask = storageRef.child('media/' + name).put(image, metadata);
                 uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                     function(snapshot) {
@@ -112,7 +113,7 @@ class SiteController {
                         });
                         vm.scope.$apply();
                     });
-            }
+            });
         }
     }
 }

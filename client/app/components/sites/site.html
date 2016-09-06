@@ -32,7 +32,7 @@
                 <input ng-if='!$ctrl.uploadvalue' type="text" ng-model="$ctrl.site.images[$index].label" placeholder="Short description" />
             </div>
             <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
-            <button ng-if="$ctrl.images.length>0" class="btn btn-primary" type="button" ng-click="$ctrl.addImages()">Save</button>
+            <button ng-if="$ctrl.images.length>0&&$ctrl.uploadtype!=='success'" class="btn btn-primary" type="button" ng-click="$ctrl.addImages()">Save</button>
         </div>
     </p>
 </div>
