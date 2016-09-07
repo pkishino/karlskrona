@@ -39,7 +39,7 @@ class SitesController {
                         "text2": "",
                         "lat": "",
                         "long": "",
-                        "type": "",
+                        "type": "dive land",
                         "average":"",
                         "max":"",
                         "sights":""

@@ -36,10 +36,10 @@
             </div>
         </div>
         <div ng-if="$ctrl.auth.$getAuth()">
-            <button class="btn btn-primary" type="button" ngf-select="$ctrl.select($files)" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.images" ngf-multiple="true">Add images</button>
-            <div ng-repeat="image in $ctrl.site.images track by $index">
+            <button class="btn btn-primary" type="button" ngf-select ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.images" ngf-multiple="true">Add images</button>
+            <div ng-repeat="image in $ctrl.images track by $index">
                 <img ngf-thumbnail="::image" class="img-thumnail" width="150px" height="100px" />
-                <input ng-if='!$ctrl.uploadvalue' type="text" ng-model="$ctrl.site.images[$index].label" placeholder="Short description" />
+                <input ng-if='!$ctrl.uploadvalue' type="text" ng-model="$ctrl.images[$index].label" placeholder="Short description" />
             </div>
             <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
             <button ng-if="$ctrl.images.length>0&&$ctrl.uploadtype!=='success'" class="btn btn-primary" type="button" ng-click="$ctrl.addImages()">Save</button>
@@ -93,12 +93,15 @@
         </label>
         <br/>
     </p>
-    <button class="btn btn-primary" type="button" ngf-select="$ctrl.select($files)" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.images" ngf-multiple="true">Select images</button>
-    <div ng-repeat="image in $ctrl.site.images track by $index">
+    <button class="btn btn-primary" type="button" ngf-select ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" name="file" ng-model="$ctrl.images" ngf-multiple="true">Select images</button>
+    <div ng-repeat="image in $ctrl.images track by $index">
         <img ngf-thumbnail="::image" class="img-thumnail" width="150px" height="100px" />
-        <input ng-if='!$ctrl.uploadvalue' type="text" ng-model="$ctrl.site.images[$index].label" placeholder="Short description" />
+        <input ng-if='!$ctrl.uploadvalue' type="text" ng-model="$ctrl.images[$index].label" placeholder="Short description" />
     </div>
     <uib-progressbar ng-if='$ctrl.uploadvalue>0' class="progress-striped active" type="{{$ctrl.uploadtype}}" value="$ctrl.uploadvalue"><b>{{$ctrl.uploadvalue}}%<b></uib-progressbar>
+    <div ng-if="$ctrl.uploadtype === 'success'">
+      Site created successfully!
+    </div>
 </form>
 <div ng-if="$ctrl.new" class="modal-footer">
     <button ng-disabled="!$ctrl.site.title || $ctrl.uploadvalue>0" class="btn btn-primary" type="button" ng-click="$ctrl.save()">Save</button>
