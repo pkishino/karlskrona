@@ -18,23 +18,25 @@ function fetchUrl(url, label) {
 
 class SiteController {
     constructor($scope, Lightbox, $firebaseObject, $firebaseAuth) {
-
-        this.site = new $firebaseObject(firebase.database().ref('sites/' + this.site.$id));
+        if (!this.new) {
+            this.site = new $firebaseObject(firebase.database().ref('sites/' + this.site.$id));
+            var vm = this;
+            this.site.$loaded().then(function() {
+                if (vm.site.media) {
+                    vm.slides = [];
+                    Object.keys(vm.site.media).forEach(function(key) {
+                        vm.loadMedia(key);
+                    });
+                }
+            });
+        }
         this.scope = $scope;
         this.lightbox = Lightbox;
         this.auth = $firebaseAuth();
         this.name = 'site';
-        this.slides = null;
         this.uploadvalue = 0;
-        var vm = this;
-        this.site.$loaded().then(function() {
-            if (vm.site.media) {
-                vm.slides = [];
-                Object.keys(vm.site.media).forEach(function(key) {
-                    vm.loadMedia(key);
-                });
-            }
-        });
+        this.slides = null;
+
     }
     loadMedia(key) {
         var vm = this;
@@ -71,65 +73,69 @@ class SiteController {
         };
         var databaseRef = firebase.database();
         var siteKey = databaseRef.ref('sites').push(newSite).key;
-        this.upload(siteKey);
-    }
-    addImages() {
-        this.upload(this.site.$id);
-    }
-    upload(siteKey) {
         var vm = this;
-        if (this.site.images) {
-            var storageRef = firebase.storage().ref();
-            this.site.images.forEach(function(image) {
-                var metadata = { contentType: image.type };
-                var name = siteKey + image.name;
-                vm.uploadtype = 'info';
-                var uploadTask = storageRef.child('media/' + name).put(image, metadata);
-                uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                    function(snapshot) {
-                        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        vm.uploadvalue = Math.floor(progress);
-                        vm.scope.$apply();
-                        switch (snapshot.state) {
-                            case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                console.log('Upload is paused');
-                                break;
-                            case firebase.storage.TaskState.RUNNING: // or 'running'
-                                console.log('Upload is running');
-                                break;
-                        }
-                    },
-                    function(error) {
-                        switch (error.code) {
-                            case 'storage/unauthorized':
-                                // User doesn't have permission to access the object
-                                break;
-
-                            case 'storage/canceled':
-                                // User canceled the upload
-                                break;
-
-                            case 'storage/unknown':
-                                // Unknown error occurred, inspect error.serverResponse
-                                break;
-                        }
-                    },
-                    function() {
-                        vm.uploadtype = 'success';
-                        var databaseRef = firebase.database();
-                        var mediaKey = databaseRef.ref('sites/' + siteKey + '/media').push().key;
-                        vm.site.media[mediaKey] = ({
-                            file: name,
-                            label: image.label === undefined ? "" : image.label
-                        });
-                        vm.site.$save().then(function() {
-                            vm.loadMedia(mediaKey);
-                        });
-                        vm.scope.$apply();
-                    });
+        this.site = new $firebaseObject(firebase.database().ref('sites/' + siteKey));
+        this.site.$loaded().then(function() {
+                this.upload(siteKey);
             });
         }
+        addImages() {
+            this.upload(this.site.$id);
+        }
+        upload(siteKey) {
+            var vm = this;
+            if (this.site.images) {
+                var storageRef = firebase.storage().ref();
+                this.site.images.forEach(function(image) {
+                    var metadata = { contentType: image.type };
+                    var name = siteKey + image.name;
+                    vm.uploadtype = 'info';
+                    var uploadTask = storageRef.child('media/' + name).put(image, metadata);
+                    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                        function(snapshot) {
+                            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            vm.uploadvalue = Math.floor(progress);
+                            vm.scope.$apply();
+                            switch (snapshot.state) {
+                                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                    console.log('Upload is paused');
+                                    break;
+                                case firebase.storage.TaskState.RUNNING: // or 'running'
+                                    console.log('Upload is running');
+                                    break;
+                            }
+                        },
+                        function(error) {
+                            switch (error.code) {
+                                case 'storage/unauthorized':
+                                    // User doesn't have permission to access the object
+                                    break;
+
+                                case 'storage/canceled':
+                                    // User canceled the upload
+                                    break;
+
+                                case 'storage/unknown':
+                                    // Unknown error occurred, inspect error.serverResponse
+                                    break;
+                            }
+                        },
+                        function() {
+                            vm.uploadtype = 'success';
+                            var databaseRef = firebase.database();
+                            var mediaKey = databaseRef.ref('sites/' + siteKey + '/media').push().key;
+                            vm.site.media[mediaKey] = ({
+                                file: name,
+                                label: image.label === undefined ? "" : image.label
+                            });
+                            vm.site.$save().then(function() {
+                                vm.loadMedia(mediaKey);
+                            });
+                            vm.scope.$apply();
+                        });
+                });
+            }
+        }
     }
-}
-SiteController.$inject = ['$scope', 'Lightbox', '$firebaseObject', '$firebaseAuth'];
-export default SiteController;
+    SiteController.$inject = ['$scope', 'Lightbox', '$firebaseObject', '$firebaseAuth'];
+    export default SiteController;
