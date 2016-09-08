@@ -77,6 +77,8 @@ class SiteController {
             if (vm.images) {
                 vm.slides = [];
                 vm.upload(siteKey);
+            } else {
+              vm.close();
             }
         });
     }

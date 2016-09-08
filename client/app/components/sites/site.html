@@ -14,6 +14,7 @@
     <p>
         <i>Siteinfo:</i>
         <ul>
+            <li ng-if="$ctrl.site.long&&$ctrl.site.lat">Long:{{$ctrl.site.long}} Lat:{{$ctrl.site.lat}}</li>
             <li ng-if="$ctrl.site.text1">{{$ctrl.site.text1}}</li>
             <li ng-if="$ctrl.site.text2">{{$ctrl.site.text2}}</li>
         </ul>
